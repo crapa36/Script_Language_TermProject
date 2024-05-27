@@ -24,14 +24,14 @@ class MainTab:
         # 항목 숫자별로 추가
 
         # 상세항목
-        self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 400 - 20, tags="Details")
+        self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 200 - 20, tags="Details")
 
         # 지도탭
         self.canvas.create_rectangle(
-            400 + 20, 400 + 20, 1600 - 20, 900 - 20, tags="Details"
+            400 + 20, 200 + 20, 1600 - 20, 900 - 20, tags="Details"
         )
         frameL = Frame(self.frame)
-        frameL.place(x=400 + 20, y=400 + 20)
+        frameL.place(x=400 + 20, y=200 + 20)
         # 도 리스트박스
         self.ProListBox = Listbox(frameL, selectmode="extended")
         self.ProListBox.pack(side=LEFT)
