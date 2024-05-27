@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import ttk  # ttk 모듈 import
 from mainTab import MainTab
 from detailedTab import DetailedTab
+#from bookmark import Bookmark
+from weather import Weather
 
 
 class MainGUI:
@@ -16,6 +18,8 @@ class MainGUI:
         # 탭 객체 생성 및 추가
         tab1 = MainTab(notebook)
         tab2 = DetailedTab(notebook)
+        #tab3 = Bookmark(notebook)
+        tab4 = Weather(notebook)
 
         window.mainloop()
 
