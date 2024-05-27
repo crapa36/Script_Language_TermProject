@@ -1,6 +1,6 @@
 from tkinter import *
-
-class MainGUI:
+import Pro_City_Dic
+class MainTab:
     def __init__(self):
         window = Tk()
         window.title("캠핑가자")
@@ -32,12 +32,7 @@ class MainGUI:
         Proscroll.pack(side=RIGHT, fill="y")
         ProListBox.config(yscrollcommand=Proscroll.set)
 
-        for _ in ProvinceList:
-            ProListBox.insert(END, _)
+
 
         window.mainloop()
 
-
-ProvinceList = ['강원도', '경기도', '경상북도', '경상남도', '전라북도', '전라남도', '충청북도', '충정남도' ]
-ProvinceList.sort()
-MainGUI()
