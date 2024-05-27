@@ -6,16 +6,38 @@ class MainGUI:
         window.title("캠핑가자")
         self.canvas = Canvas(window, width=1600, height=900, bg='white')
         self.canvas.pack()
+        #좌측 체크박스
         self.canvas.create_rectangle(20, 20, 400-20, 900-20, tags='CheckList')
-        frame = Frame(window)
-        frame.place(x=30, y=30)
+        frameC = Frame(window)
+        frameC.place(x=30, y=30)
         self.CheckBox1 = IntVar()
-        Checkbutton(frame, text='항목1', variable=self.CheckBox1).pack(side=TOP)
+        Checkbutton(frameC, text='항목1', variable=self.CheckBox1).pack(side=TOP)
         self.CheckBox2 = IntVar()
-        Checkbutton(frame, text='항목2', variable=self.CheckBox2).pack(side=TOP)
-        #항목 숫자별로 추기
+        Checkbutton(frameC, text='항목2', variable=self.CheckBox2).pack(side=TOP)
+        #항목 숫자별로 추가
+
+        #상세항목
+        self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 400 - 20, tags='Details')
+
+        #지도탭
+        self.canvas.create_rectangle(400 + 20, 400 + 20, 1600 - 20, 900 - 20, tags='Details')
+        frameL = Frame(window)
+        frameL.place(x=400+20, y=400 + 20)
+
+        ProListBox = Listbox(frameL, selectmode='extended')
+        ProListBox.pack(side=LEFT)
+
+        Proscroll = Scrollbar(frameL, orient="vertical")
+        Proscroll.config(command=ProListBox.yview)
+        Proscroll.pack(side=RIGHT, fill="y")
+        ProListBox.config(yscrollcommand=Proscroll.set)
+
+        for _ in ProvinceList:
+            ProListBox.insert(END, _)
+
         window.mainloop()
 
 
-
+ProvinceList = ['강원도', '경기도', '경상북도', '경상남도', '전라북도', '전라남도', '충청북도', '충정남도' ]
+ProvinceList.sort()
 MainGUI()
