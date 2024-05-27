@@ -9,7 +9,7 @@ class MainTab:
         notebook.add(self.frame, text="메인")
 
         self.canvas = Canvas(
-            self.frame, width=1200, height=900, bg="white"
+            self.frame, width=1600, height=900, bg="white"
         )  # frame을 부모로 가지는 Canvas 생성
         self.canvas.pack(expand=True, fill="both")  # Canvas를 확장하여 채우도록 설정
 
@@ -54,7 +54,7 @@ class MainTab:
         self.citListBox.config(yscrollcommand=citScroll.set)
 
         # 이벤트 바인딩
-        self.ProListBox.bind('<<ListboxSelect>>', self.update_city_list)
+        self.ProListBox.bind("<<ListboxSelect>>", self.update_city_list)
 
     def update_city_list(self, event):
         # 선택된 도의 이름을 가져옴
