@@ -2,10 +2,10 @@ from tkinter import *
 import Pro_City_Dic
 
 
-class MainTab:
+class DetailedTab:
     def __init__(self, notebook):
         self.frame = Frame(notebook)
-        notebook.add(self.frame, text="메인")
+        notebook.add(self.frame, text="세부정보")
 
         self.canvas = Canvas(
             self.frame, width=1200, height=900, bg="white"
