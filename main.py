@@ -20,15 +20,4 @@ class MainGUI:
         window.mainloop()
 
 
-ProvinceList = [
-    "강원도",
-    "경기도",
-    "경상북도",
-    "경상남도",
-    "전라북도",
-    "전라남도",
-    "충청북도",
-    "충청남도",
-]
-ProvinceList.sort()
 MainGUI()
