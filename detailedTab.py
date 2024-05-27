@@ -15,6 +15,23 @@ class DetailedTab:
         self.canvas.create_rectangle(20, 20, 800 - 20, 900 - 220, tags="Map")
         # 주소 정보
         self.canvas.create_rectangle(20, 900 - 200, 800 - 20, 900 - 20, tags="Address")
+        address_frame = Frame(self.frame, bg='white')
+        address_frame.place(x=40, y=900-180)
+        #예시용
+        address = '강원도 춘천시 남면 가옹개길 52-9'
+        address_label = Label(address_frame, text=address, bg='white')
+        address_label.pack(side=TOP, anchor='w')
+        #예시용
+        wep_address = 'http://outofpark.com/main/'
+        wep_address_label = Label(address_frame, text=wep_address, bg='white')
+        wep_address_label.pack(side=TOP, anchor='w')
+        #예시용
+        call_num = '1522-1861-'
+        call_num_label = Label(address_frame, text=call_num, bg='white')
+        call_num_label.pack(side=TOP, anchor='w')
+
+
+
         # 캠핑장 이름
         self.canvas.create_rectangle(800 + 20, 20, 1600 - 20, 200 - 20, tags="Name")
 
