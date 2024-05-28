@@ -52,4 +52,9 @@ class DetailedTab:
 
         #캠핑장 특성
         self.canvas.create_rectangle(800 + 20, 200 + 20, 1600 - 20, 900 - 20, tags="Trait")
+        trait_frame = Frame(self.frame,bg='white')
+        trait_frame.place(x=800 + 40, y=200 + 40)
+
         #업종, 입지 구분, 운영계절, 운영일, 동물 허용, 부대시설, 화로대
+
+
