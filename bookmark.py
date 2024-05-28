@@ -1,6 +1,18 @@
 from tkinter import *
 
-
+#예시용
+bookmarked_list = [
+        "에버랜드 캠핑장",
+        "낙산해수욕장 캠핑장",
+        "용추계곡 캠핑장",
+        "지리산 국립공원 캠핑장",
+        "솔향기 캠핑장",
+        "남해국립공원 캠핑장",
+        "가평 푸른숲 캠핑장",
+        "춘천 봉의동 강가 캠핑장",
+        "덕포해수욕장 캠핑장",
+        "한라산 국립공원 캠핑장"
+]
 class Bookmark:
 
     def __init__(self, notebook):
@@ -24,21 +36,9 @@ class Bookmark:
         bookmark_scroll.pack(side=LEFT, fill="y")
         self.bookmark_listBox.config(yscrollcommand=bookmark_scroll.set)
 
-        #예시용
-        camping_sites = [
-            "에버랜드 캠핑장",
-            "낙산해수욕장 캠핑장",
-            "용추계곡 캠핑장",
-            "지리산 국립공원 캠핑장",
-            "솔향기 캠핑장",
-            "남해국립공원 캠핑장",
-            "가평 푸른숲 캠핑장",
-            "춘천 봉의동 강가 캠핑장",
-            "덕포해수욕장 캠핑장",
-            "한라산 국립공원 캠핑장"
-        ]
 
-        for N in camping_sites:
+
+        for N in bookmarked_list:
             self.bookmark_listBox.insert(END, N)
         # 상세항목
         self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 200 - 20, tags="Details")
