@@ -1,5 +1,4 @@
 from tkinter import *
-import Pro_City_Dic
 
 
 class DetailedTab:
