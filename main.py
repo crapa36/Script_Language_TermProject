@@ -2,8 +2,8 @@ from tkinter import *
 from tkinter import ttk  # ttk 모듈 import
 from mainTab import MainTab
 from detailedTab import DetailedTab
-
 from bookmark import Bookmark
+from comparison import Comparison
 
 
 class MainGUI:
@@ -19,7 +19,7 @@ class MainGUI:
         tab1 = MainTab(notebook)
         tab2 = DetailedTab(notebook)
         tab3 = Bookmark(notebook)
-        #tab4 = Weather(notebook)
+        tab4 = Comparison(notebook)
 
         window.mainloop()
 
