@@ -22,12 +22,12 @@ class MainTab:
         Checkbutton(frameC, text="항목2", variable=self.CheckBox2).pack(side=TOP)
 
         # 상세항목
-        self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 400 - 20, tags="Details")
+        self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 300 - 20, tags="Details")
 
         # 지도탭
-        self.canvas.create_rectangle(400 + 20, 400 + 20, 1600 - 20, 900 - 20, tags="Details")
+        self.canvas.create_rectangle(400 + 20, 300 + 20, 1600 - 20, 900 - 20, tags="Details")
         frameL = Frame(self.frame)
-        frameL.place(x=400 + 20, y=400 + 20)
+        frameL.place(x=400 + 20, y=300 + 20)
 
         # 도 콤보박스
         self.pro_combobox = ttk.Combobox(frameL)
