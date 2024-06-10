@@ -52,6 +52,17 @@ def search_campsites():
     display_results(results)
 
 
+def get_campsite_info_by_name(name):
+    """
+    캠핑장 이름을 입력받아 해당 캠핑장의 정보를 리턴하는 함수
+    :param name: 캠핑장 이름
+    :return: 캠핑장 정보 딕셔너리 (없으면 None)
+    """
+    for campsite in campsites:
+        if campsite["name"].lower() == name.lower():
+            return campsite
+    return None
+
 def update_results():
     results = campsites
     if weekday_var.get():
