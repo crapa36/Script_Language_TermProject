@@ -37,16 +37,6 @@ class MainTab:
         frameL = Frame(self.frame)
         frameL.place(x=400 + 20, y=300 + 20)
 
-        # 도 콤보박스
-        self.pro_combobox = ttk.Combobox(frameL)
-        self.pro_combobox.pack(side=LEFT)
-        self.pro_combobox["values"] = sorted(Pro_City_Dic.korea_regions.keys())
-        self.pro_combobox.bind("<<ComboboxSelected>>", self.update_city_combobox)
-
-        # 시 콤보박스
-        self.cit_combobox = ttk.Combobox(frameL)
-        self.cit_combobox.pack(side=LEFT)
-
         # Google Maps API 클라이언트 생성
         self.Google_API_Key = "AIzaSyCzFgc9OGnXckq1-JNhSCVGo9zIq1kSWcE"
         self.gmaps = Client(key=self.Google_API_Key)
@@ -55,25 +45,40 @@ class MainTab:
         self.address = "서울특별시"
         self.zoom = 13
 
+        # 도 콤보박스
+        self.pro_combobox = ttk.Combobox(frameL)
+        self.pro_combobox.pack(side=LEFT)
+        self.pro_combobox["values"] = sorted(Pro_City_Dic.korea_regions.keys())
+        self.pro_combobox.bind("<<ComboboxSelected>>", self.update_city_combobox)
+        self.pro_combobox.set(
+            self.pro_combobox["values"][0]
+        )  # 첫 번째 값으로 초기값 설정
+
+        # 시 콤보박스
+        self.cit_combobox = ttk.Combobox(frameL)
+        self.cit_combobox.pack(side=LEFT)
+        self.cit_combobox["values"] = sorted(
+            Pro_City_Dic.korea_regions[self.pro_combobox.get()]
+        )
+        self.cit_combobox.set(
+            self.cit_combobox["values"][0]
+        )  # 첫 번째 값으로 초기값 설정
+        # 시 콤보박스 선택 변경 시 update_map 호출
+        self.cit_combobox.bind("<<ComboboxSelected>>", lambda event: self.update_map())
         # 지도 이미지 라벨 생성
         self.map_label = Label(frameL)
-        self.map_label.pack()
 
         # 지도 업데이트
         self.update_map()
 
-    def update_map(self):
-        # 지도의 중심을 주소로 설정
-        center = self.gmaps.geocode(self.address)[0]["geometry"]["location"]
-        map_url = f"https://maps.googleapis.com/maps/api/staticmap?center={center['lat']},{center['lng']}&zoom={self.zoom}&size=400x400&maptype=roadmap"
+        # 지도 이미지 라벨 배치
+        self.map_label.pack()  # 콤보박스 아래에 배치
 
-        # # 캠핑장 코드로 수정 필요
-        # hospitals_in_city = [hospital for hospital in self.hospitals if hospital['address'].split()[0] == self.address]
-        # for hospital in hospitals_in_city:
-        #     if hospital['lat'] and hospital['lng']:
-        #         lat, lng = float(hospital['lat']), float(hospital['lng'])
-        #         marker_url = f"&markers=color:red%7C{lat},{lng}"
-        #         map_url += marker_url
+    def update_map(self):
+        # 지도의 중심을 콤보박스에서 선택한 위치로 설정
+        selected_location = self.pro_combobox.get() + " " + self.cit_combobox.get()
+        center = self.gmaps.geocode(selected_location)[0]["geometry"]["location"]
+        map_url = f"https://maps.googleapis.com/maps/api/staticmap?center={center['lat']},{center['lng']}&zoom={self.zoom}&size=800x500&maptype=roadmap"
 
         # 지도 이미지 다운로드
         response = requests.get(map_url + "&key=" + self.Google_API_Key)
@@ -90,6 +95,13 @@ class MainTab:
 
         # 시 콤보박스 초기화
         self.cit_combobox.set("")
+        self.cit_combobox["values"] = []
 
+        # 선택된 도의 시 리스트를 가져와서 시 콤보박스를 업데이트
+        cities = Pro_City_Dic.korea_regions.get(selected_do, [])
+        self.cit_combobox["values"] = cities
+        self.cit_combobox.set(
+            self.cit_combobox["values"][0]
+        )  # 첫 번째 값으로 초기값 설정
         # 지도 위치 업데이트
-        self.map_widget.set_address(selected_do)
+        self.update_map()
