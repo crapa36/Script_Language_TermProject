@@ -78,8 +78,13 @@ class MainTab:
         # 지도의 중심을 콤보박스에서 선택한 위치로 설정
         selected_location = self.pro_combobox.get() + " " + self.cit_combobox.get()
         center = self.gmaps.geocode(selected_location)[0]["geometry"]["location"]
-        map_url = f"https://maps.googleapis.com/maps/api/staticmap?center={center['lat']},{center['lng']}&zoom={self.zoom}&size=800x500&maptype=roadmap"
 
+        #예시용 마커
+        marker_lat, marker_lng = 37.5665, 126.9780
+
+        map_url = (f"https://maps.googleapis.com/maps/api/staticmap?center={center['lat']},{center['lng']}&zoom={self.zoom}&size=800x500&maptype=roadmap"
+                   f"&markers=color:red%7Clabel:S%7C{marker_lat},{marker_lng}"
+                   )
         # 지도 이미지 다운로드
         response = requests.get(map_url + "&key=" + self.Google_API_Key)
         image = Image.open(io.BytesIO(response.content))
