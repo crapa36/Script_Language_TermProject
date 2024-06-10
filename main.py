@@ -55,7 +55,7 @@ class MainGUI:
         notebook.pack(expand=True, fill="both")
 
         #상세에 보일 사이트
-        selected_site = '파크킹'
+        selected_site = "캠프더포레"
 
         # 탭 객체 생성 및 추가
         tab1 = MainTab(notebook)
