@@ -128,6 +128,14 @@ class Bookmark:
         )
         self.brazier_stand_label.config(text="화로대: " + selected_campsite["brazier"])
 
+        # 삭제하기 버튼
+        self.button_frame = Frame(self.frame)
+        self.button_frame.place(x=1520, y=220)
+        self.bookmark_button = Button(
+            self.button_frame, text="삭제하기"
+        )
+        self.bookmark_button.pack(side=TOP)
+
     def update(self, bookmarks):
         self.bookmark_listBox.delete(0, "end")  # 기존 항목 삭제
         for bookmark in bookmarks:
