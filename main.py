@@ -65,7 +65,7 @@ class MainGUI:
 
         self.tab2 = self.tab1.DetailedTab
 
-        self.tab3 = Bookmark(notebook, self.bookmarks)
+        self.tab3 = Bookmark(notebook, self.bookmarks, self)
         self.tab4 = Comparison(notebook, self.bookmarks)
 
         window.mainloop()

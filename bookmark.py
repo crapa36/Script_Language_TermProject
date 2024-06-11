@@ -3,10 +3,10 @@ from tkinter import *
 
 class Bookmark:
 
-    def __init__(self, notebook, bookmark_list):
+    def __init__(self, notebook, bookmark_list, main_gui):
         self.frame = Frame(notebook)
         notebook.add(self.frame, text="찜하기")
-
+        self.main_gui = main_gui
         self.bookmark_list = bookmark_list
 
         self.canvas = Canvas(
@@ -132,3 +132,6 @@ class Bookmark:
         self.bookmark_listBox.delete(0, "end")  # 기존 항목 삭제
         for bookmark in bookmarks:
             self.bookmark_listBox.insert("end", bookmark["name"])  # 새 항목 추가
+
+    def delete_to_bookmarks(self):
+        self.main_gui.delete_to_bookmarks(self.selected_campsite)
