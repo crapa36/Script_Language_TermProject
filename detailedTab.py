@@ -10,7 +10,7 @@ import smtplib
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 
-TOKEN = "7481744351:AAE3Po9SQfY-HfkDk4hIoIYQ3s36X3eke-Q"  # 텔레그램 봇의 API 토큰
+TOKEN = "7360230970:AAEMlQZ8kf2UqsIQQfeaRRP6LsBXmbPOi24"  # 텔레그램 봇의 API 토큰
 bot = telepot.Bot(TOKEN)
 
 
@@ -42,11 +42,11 @@ class DetailedTab:
         # 지도 이미지 라벨 배치
         self.map_label.pack()
 
-        #줌인
-        self.zoom_in_button = Button(frameL, text='+', command=self.zoom_in)
+        # 줌인
+        self.zoom_in_button = Button(frameL, text="+", command=self.zoom_in)
         self.zoom_in_button.place(x=0, y=0)
-        #줌아웃
-        self.zoom_out_button = Button(frameL, text='-', command=self.zoom_out)
+        # 줌아웃
+        self.zoom_out_button = Button(frameL, text="-", command=self.zoom_out)
         self.zoom_out_button.place(x=20, y=0)
 
         # 주소 정보
