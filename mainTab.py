@@ -272,6 +272,50 @@ class MainTab:
         )
         exercise_checkbox.grid(row=10, column=2, sticky="w")
 
+        # 업종 구분 체크박스
+        Label(checkbox_frame, text="업종 구분", font=("Arial", 12), anchor='w').grid(
+            row=11, column=0, columnspan=1, sticky="w"
+        )
+        self.general_camp_var = BooleanVar()
+        general_camp_checkbox = Checkbutton(
+            checkbox_frame,
+            text="일반야영장",
+            variable=self.general_camp_var,
+            command=self.filterCampsites,
+            anchor="w",
+        )
+        general_camp_checkbox.grid(row=12, column=0, sticky="w")
+
+        self.car_camp_var = BooleanVar()
+        car_camp_checkbox = Checkbutton(
+            checkbox_frame,
+            text="자동차야영장",
+            variable=self.car_camp_var,
+            command=self.filterCampsites,
+            anchor="w",
+        )
+        car_camp_checkbox.grid(row=12, column=1, sticky="w")
+
+        self.caravan_var = BooleanVar()
+        caravan_checkbox = Checkbutton(
+            checkbox_frame,
+            text="카라반",
+            variable=self.caravan_var,
+            command=self.filterCampsites,
+            anchor="w",
+        )
+        caravan_checkbox.grid(row=12, column=2, sticky="w")
+
+        self.glamping_var = BooleanVar()
+        glamping_checkbox = Checkbutton(
+            checkbox_frame,
+            text="글램핑",
+            variable=self.glamping_var,
+            command=self.filterCampsites,
+            anchor="w",
+        )
+        glamping_checkbox.grid(row=12, column=3, sticky="w")
+
     def filterCampsites(self):
         self.filteredCampsites = self.Campsites
         if self.weekday_var.get() == True:
@@ -387,6 +431,30 @@ class MainTab:
                 campsite
                 for campsite in self.filteredCampsites
                 if "운동시설" in campsite["amenities"]
+            ]
+        if self.general_camp_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "일반야영장" in campsite["induty"]
+            ]
+        if self.car_camp_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "자동차야영장" in campsite["induty"]
+            ]
+        if self.caravan_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "카라반" in campsite["induty"]
+            ]
+        if self.glamping_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "글램핑" in campsite["induty"]
             ]
         self.display_results(self.filteredCampsites)
 
