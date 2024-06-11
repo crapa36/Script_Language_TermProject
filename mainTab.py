@@ -10,9 +10,11 @@ from googlemaps import Client
 
 class MainTab:
 
-    def __init__(self, notebook):
+    def __init__(self, notebook, campsites):
         self.frame = Frame(notebook)
         notebook.add(self.frame, text="메인")
+
+        self.Mcampsites = campsites
 
         self.canvas = Canvas(self.frame, width=1200, height=900, bg="white")
         self.canvas.pack(expand=True, fill="both")
@@ -79,12 +81,16 @@ class MainTab:
         selected_location = self.pro_combobox.get() + " " + self.cit_combobox.get()
         center = self.gmaps.geocode(selected_location)[0]["geometry"]["location"]
 
-        #예시용 마커
-        marker_lat, marker_lng = 37.5665, 126.9780
+        markers = ""
+
+        for campsite in self.Mcampsites:
+            markers += f"&markers=color:red%7Clabel:S%7C{campsite['lat']},{campsite['lng']}"
+
 
         map_url = (f"https://maps.googleapis.com/maps/api/staticmap?center={center['lat']},{center['lng']}&zoom={self.zoom}&size=800x500&maptype=roadmap"
-                   f"&markers=color:red%7Clabel:S%7C{marker_lat},{marker_lng}"
+                   f"{markers}"
                    )
+
         # 지도 이미지 다운로드
         response = requests.get(map_url + "&key=" + self.Google_API_Key)
         image = Image.open(io.BytesIO(response.content))
