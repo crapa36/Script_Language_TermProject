@@ -5,6 +5,10 @@ import io
 import requests
 from googlemaps import Client
 import telepot
+import mimetypes
+import smtplib
+from email.mime.base import MIMEBase
+from email.mime.text import MIMEText
 
 TOKEN = "7481744351:AAE3Po9SQfY-HfkDk4hIoIYQ3s36X3eke-Q"  # 텔레그램 봇의 API 토큰
 bot = telepot.Bot(TOKEN)
@@ -175,7 +179,7 @@ class DetailedTab:
 
         # 이메일 버튼
         self.bookmark_button = Button(
-            self.button_frame, text="이메일", command=self.send_telegram_message
+            self.button_frame, text="이메일", command=self.send_email
         )
         self.bookmark_button.pack(side=TOP)
 
@@ -259,3 +263,47 @@ class DetailedTab:
 
     def add_to_bookmarks(self):
         self.main_gui.add_to_bookmarks(self.selected_campsite)
+
+    def send_email(self):
+        host = "smtp.gmail.com"  # Gmail STMP 서버 주소.
+        port = "587"
+        htmlFileName = "logo.html"
+
+        senderAddr = "crapa36@gmail.com"  # 보내는 사람 email 주소.
+        recipientAddr = "minsoolee123@naver.com"  # 받는 사람 email 주소.
+
+        msg = MIMEBase("multipart", "alternative")
+
+        msg = MIMEText(
+            f"""주소: {self.selected_campsite['address']}
+        홈페이지: {self.selected_campsite['homepage']}
+        소개: {self.selected_campsite['intro']}
+        업종: {self.selected_campsite['induty']}
+        입지 구분: {self.selected_campsite['siteView']}
+        전화번호: {self.selected_campsite['telNum']}
+        예약 방법: {self.selected_campsite['reserve']}
+        운영 계절: {self.selected_campsite['openSeason']}
+        운영일: {self.selected_campsite['openDate']}
+        동물 동반 여부: {self.selected_campsite['animalAllow']}
+        부대시설: {self.selected_campsite['amenities']}
+        화로대: {self.selected_campsite['brazier']}
+        """
+        )
+        msg[
+            "Subject"
+        ] = f"""
+        이름: {self.selected_campsite['name']}
+        """
+        msg["From"] = senderAddr
+        msg["To"] = recipientAddr
+        # MIME 문서를 생성합니다.
+
+        # 메일을 발송한다.
+        s = smtplib.SMTP(host, port)
+        # s.set_debuglevel(1)        # 디버깅이 필요할 경우 주석을 푼다.
+        s.ehlo()
+        s.starttls()
+        s.ehlo()
+        s.login("crapa36@gmail.com", "tfwp hcgq xucg ekhc")
+        s.sendmail(senderAddr, [recipientAddr], msg.as_string())
+        s.close()
