@@ -18,16 +18,21 @@ class MainTab:
         self.canvas.pack(expand=True, fill="both")
 
         # 입지구분에 대한 체크박스
+
         self.canvas.create_rectangle(20, 20, 400 - 20, 900 - 20, tags="CheckList")
         checkbox_frame = Frame(self.frame)
         checkbox_frame.place(x=30, y=30)
+
+        # 운영일 체크박스
+        Label(checkbox_frame, text="운영일").grid(row=0, column=0, columnspan=2)
         self.weekday_var = BooleanVar()
         weekday_checkbox = Checkbutton(
             checkbox_frame,
             text="평일 운영",
-            variable=self.weekday_var,  # self 추가
+            variable=self.weekday_var,
+            command=self.filterCampsites,
         )
-        weekday_checkbox.grid(row=0, column=0)
+        weekday_checkbox.grid(row=1, column=0)
 
         self.weekend_var = BooleanVar()
         weekend_checkbox = Checkbutton(
@@ -45,90 +50,103 @@ class MainTab:
             variable=self.mountain_var,  # self 추가
             command=self.filterCampsites,
         )
-        mountain_checkbox.grid(row=1, column=0)
+        weekend_checkbox.grid(row=1, column=1)
 
-        self.forest_var = BooleanVar()
-        forest_checkbox = Checkbutton(
-            checkbox_frame,
-            text="숲",
-            variable=self.forest_var,  # self 추가
-            command=self.filterCampsites,
-        )
-        forest_checkbox.grid(row=1, column=1)
-
-        self.river_var = BooleanVar()
-        river_checkbox = Checkbutton(
-            checkbox_frame,
-            text="강",
-            variable=self.river_var,  # self 추가
-            command=self.filterCampsites,
-        )
-        river_checkbox.grid(row=1, column=2)
-
-        self.beach_var = BooleanVar()
-        beach_checkbox = Checkbutton(
-            checkbox_frame,
-            text="해변",
-            variable=self.beach_var,  # self 추가
-            command=self.filterCampsites,
-        )
-        beach_checkbox.grid(row=1, column=3)
-
-        # 운영 계절 체크박스
+        # 계절 체크박스
+        Label(checkbox_frame, text="운영 계절").grid(row=2, column=0, columnspan=4)
         self.spring_var = BooleanVar()
         spring_checkbox = Checkbutton(
             checkbox_frame,
             text="봄",
-            variable=self.spring_var,  # self 추가
+            variable=self.spring_var,
             command=self.filterCampsites,
         )
-        spring_checkbox.grid(row=2, column=0)
+        spring_checkbox.grid(row=3, column=0)
 
         self.summer_var = BooleanVar()
         summer_checkbox = Checkbutton(
             checkbox_frame,
             text="여름",
-            variable=self.summer_var,  # self 추가
+            variable=self.summer_var,
             command=self.filterCampsites,
         )
-        summer_checkbox.grid(row=2, column=1)
+        summer_checkbox.grid(row=3, column=1)
 
         self.fall_var = BooleanVar()
         fall_checkbox = Checkbutton(
             checkbox_frame,
             text="가을",
-            variable=self.fall_var,  # self 추가
+            variable=self.fall_var,
             command=self.filterCampsites,
         )
-        fall_checkbox.grid(row=2, column=2)
+        fall_checkbox.grid(row=3, column=2)
 
         self.winter_var = BooleanVar()
         winter_checkbox = Checkbutton(
             checkbox_frame,
             text="겨울",
-            variable=self.winter_var,  # self 추가
+            variable=self.winter_var,
             command=self.filterCampsites,
         )
-        winter_checkbox.grid(row=2, column=3)
+        winter_checkbox.grid(row=3, column=3)
 
-        # 동물 허용 체크박스
+        # 입지 구분 체크박스
+        Label(checkbox_frame, text="입지 구분").grid(row=4, column=0, columnspan=4)
+        self.mountain_var = BooleanVar()
+        mountain_checkbox = Checkbutton(
+            checkbox_frame,
+            text="산",
+            variable=self.mountain_var,
+            command=self.filterCampsites,
+        )
+        mountain_checkbox.grid(row=5, column=0)
+
+        self.forest_var = BooleanVar()
+        forest_checkbox = Checkbutton(
+            checkbox_frame,
+            text="숲",
+            variable=self.forest_var,
+            command=self.filterCampsites,
+        )
+        forest_checkbox.grid(row=5, column=1)
+
+        self.river_var = BooleanVar()
+        river_checkbox = Checkbutton(
+            checkbox_frame,
+            text="강",
+            variable=self.river_var,
+            command=self.filterCampsites,
+        )
+        river_checkbox.grid(row=5, column=2)
+
+        self.beach_var = BooleanVar()
+        beach_checkbox = Checkbutton(
+            checkbox_frame,
+            text="해변",
+            variable=self.beach_var,
+            command=self.filterCampsites,
+        )
+        beach_checkbox.grid(row=5, column=3)
+
+        # 동물 허용 여부 체크박스
+        Label(checkbox_frame, text="동물 허용 여부").grid(row=6, column=0, columnspan=2)
         self.animal_allow_var = BooleanVar()
         animal_allow_checkbox = Checkbutton(
             checkbox_frame,
-            text="동물 허용",
-            variable=self.animal_allow_var,  # self 추가
+            text="허용",
+            variable=self.animal_allow_var,
             command=self.filterCampsites,
         )
-        animal_allow_checkbox.grid(row=3, column=0)
+        animal_allow_checkbox.grid(row=7, column=0)
 
         self.animal_disallow_var = BooleanVar()
         animal_disallow_checkbox = Checkbutton(
             checkbox_frame,
-            text="동물 불허",
-            variable=self.animal_disallow_var,  # self 추가
+            text="미허용",
+            variable=self.animal_disallow_var,
             command=self.filterCampsites,
         )
-        animal_disallow_checkbox.grid(row=3, column=1)
+        animal_disallow_checkbox.grid(row=7, column=1)
 
         # 검색창
         self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 65 - 20, tags="Details")
