@@ -4,15 +4,19 @@ from PIL import Image, ImageTk
 import io
 import requests
 from googlemaps import Client
+import telepot
+
+TOKEN = "7481744351:AAE3Po9SQfY-HfkDk4hIoIYQ3s36X3eke-Q"  # 텔레그램 봇의 API 토큰
+bot = telepot.Bot(TOKEN)
 
 
 class DetailedTab:
-    def __init__(self, notebook, selected_campsite):
+    def __init__(self, notebook, selected_campsite, main_gui):
         self.notebook = notebook
         self.selected_campsite = selected_campsite
         self.frame = Frame(notebook)
         notebook.add(self.frame, text="세부정보")
-
+        self.main_gui = main_gui
         self.canvas = Canvas(
             self.frame, width=1600, height=900, bg="white"
         )  # frame을 부모로 가지는 Canvas 생성
@@ -214,3 +218,12 @@ class DetailedTab:
         if self.zoom > 2:
             self.zoom -= 1
             self.update_map()
+
+    def send_telegram_message(self, user, msg):
+        try:
+            bot.sendMessage(user, msg)
+        except Exception as e:
+            print(f"Error occurred while sending message: {e}")
+
+    def add_to_bookmarks(self):
+        self.main_gui.add_to_bookmarks(self.selected_campsite)
