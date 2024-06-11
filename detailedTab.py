@@ -26,7 +26,6 @@ class DetailedTab:
         )  # frame을 부모로 가지는 Canvas 생성
         self.canvas.pack(expand=True, fill="both")  # Canvas를 확장하여 채우도록 설정
         # 지도탭
-        
         frameL = Frame(self.frame)
         frameL.place(x=60, y=30)
         # Google Maps API 클라이언트 생성
@@ -42,6 +41,13 @@ class DetailedTab:
 
         # 지도 이미지 라벨 배치
         self.map_label.pack()
+
+        #줌인
+        self.zoom_in_button = Button(frameL, text='+', command=self.zoom_in)
+        self.zoom_in_button.place(x=0, y=0)
+        #줌아웃
+        self.zoom_out_button = Button(frameL, text='-', command=self.zoom_out)
+        self.zoom_out_button.place(x=20, y=0)
 
         # 주소 정보
         self.canvas.create_rectangle(20, 900 - 200, 800 - 20, 900 - 20, tags="Address")
