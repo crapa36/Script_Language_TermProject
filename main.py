@@ -61,7 +61,7 @@ class MainGUI:
         self.bookmarks = []
 
         # 탭 객체 생성 및 추가
-        tab1 = MainTab(notebook, campsites)
+        tab1 = MainTab(notebook, campsites, MainGUI)
 
         tab2 = tab1.DetailedTab
 
@@ -75,6 +75,9 @@ class MainGUI:
             if campsite["name"] == name:
                 return campsite
         return None
+
+    def add_to_bookmarks(self, campsite):
+        self.bookmarks.append(campsite)
 
 
 MainGUI(campsites)

@@ -11,12 +11,12 @@ bot = telepot.Bot(TOKEN)
 
 
 class DetailedTab:
-    def __init__(self, notebook, selected_campsite):
+    def __init__(self, notebook, selected_campsite, main_gui):
         self.notebook = notebook
         self.selected_campsite = selected_campsite
         self.frame = Frame(notebook)
         notebook.add(self.frame, text="세부정보")
-
+        self.main_gui = main_gui
         self.canvas = Canvas(
             self.frame, width=1600, height=900, bg="white"
         )  # frame을 부모로 가지는 Canvas 생성
@@ -223,4 +223,4 @@ class DetailedTab:
             print(f"Error occurred while sending message: {e}")
 
     def add_to_bookmarks(self):
-        pass
+        self.main_gui.add_to_bookmarks(self.selected_campsite)

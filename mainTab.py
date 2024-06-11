@@ -6,12 +6,12 @@ from detailedTab import DetailedTab
 
 class MainTab:
 
-    def __init__(self, notebook, campsites):
+    def __init__(self, notebook, campsites, main_gui):
         self.frame = Frame(notebook)
         notebook.add(self.frame, text="메인")
         self.notebook = notebook
         selected_campsite = campsites[0]
-        self.DetailedTab = DetailedTab(notebook, selected_campsite)
+        self.DetailedTab = DetailedTab(notebook, selected_campsite, main_gui)
         self.Campsites = campsites
         self.filteredCampsites = campsites
         self.canvas = Canvas(self.frame, width=1200, height=900, bg="white")
@@ -273,7 +273,7 @@ class MainTab:
         exercise_checkbox.grid(row=10, column=2, sticky="w")
 
         # 업종 구분 체크박스
-        Label(checkbox_frame, text="업종 구분", font=("Arial", 12), anchor='w').grid(
+        Label(checkbox_frame, text="업종 구분", font=("Arial", 12), anchor="w").grid(
             row=11, column=0, columnspan=1, sticky="w"
         )
         self.general_camp_var = BooleanVar()
