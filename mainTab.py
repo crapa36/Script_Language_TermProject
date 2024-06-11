@@ -23,7 +23,7 @@ class MainTab:
             checkbox_frame,
             text="평일 운영",
             variable=self.weekday_var,  # self 추가
-            command=self.update_map,
+
         )
         weekday_checkbox.grid(row=0, column=0)
 
@@ -32,7 +32,7 @@ class MainTab:
             checkbox_frame,
             text="주말 운영",
             variable=self.weekend_var,  # self 추가
-            command=self.update_map,
+
         )
         weekend_checkbox.grid(row=0, column=1)
 
@@ -41,37 +41,30 @@ class MainTab:
         self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 65 - 20, tags="Details")
 
 
-        search_var = StringVar()
-        search_entry = Entry(self.frame, textvariable=search_var, width=105, font=300)
+        self.search_var = StringVar()
+        search_entry = Entry(self.frame, textvariable=self.search_var, width=105, font=300)
         search_entry.place(x=400+20, y=20)
 
-        # 지도탭
-        self.canvas.create_rectangle(
-            400 + 20, 300 + 20, 1600 - 20, 900 - 20, tags="map"
-        )
-        frameL = Frame(self.frame)
-        frameL.place(x=400 + 20, y=300 + 20)
+        search_button = Button(self.frame, text="검색", command=self.search_campsites)
+        search_button.place(x=1550, y=20)
 
-        # 도 콤보박스
-        self.pro_combobox = ttk.Combobox(frameL)
-        self.pro_combobox.pack(side=LEFT)
-        self.pro_combobox["values"] = sorted(Pro_City_Dic.korea_regions.keys())
-        self.pro_combobox.bind("<<ComboboxSelected>>", self.update_city_combobox)
-        self.pro_combobox.set(
-            self.pro_combobox["values"][0]
-        )  # 첫 번째 값으로 초기값 설정
+        #검색결과
+        self.results_frame = Frame(self.frame)
+        self.results_frame.place(x=400 + 20, y=100+20)
 
-        # 시 콤보박스
-        self.cit_combobox = ttk.Combobox(frameL)
-        self.cit_combobox.pack(side=LEFT)
-        self.cit_combobox["values"] = sorted(
-            Pro_City_Dic.korea_regions[self.pro_combobox.get()]
-        )
-        self.cit_combobox.set(
-            self.cit_combobox["values"][0]
-        )  # 첫 번째 값으로 초기값 설정
-        # 시 콤보박스 선택 변경 시 update_map 호출
-        self.cit_combobox.bind("<<ComboboxSelected>>", lambda event: self.update_map())
+        self.results_canvas = Canvas(self.results_frame, width=1100, height=700)
+        self.results_canvas.pack(side=LEFT, fill=BOTH, expand=True)
+
+        scrollbar = Scrollbar(self.results_frame, orient=VERTICAL, command=self.results_canvas.yview)
+        scrollbar.pack(side=RIGHT, fill=Y)
+
+        self.results_canvas.configure(yscrollcommand=scrollbar.set)
+        self.results_canvas.bind("<Configure>", lambda e: self.results_canvas.configure(scrollregion=self.results_canvas.bbox("all")))
+
+        self.results_frame_inner = Frame(self.results_canvas)
+        self.results_canvas.create_window((0, 0), window=self.results_frame_inner, anchor="nw")
+
+
 
     def filterCampsites(self):
         self.filteredCampsites = self.Campsites
@@ -88,29 +81,27 @@ class MainTab:
                 if "주말" in campsite["openDate"]
             ]
 
-    def update_city_combobox(self, event):
-        # 선택된 도의 이름을 가져옴
-        selected_do = self.pro_combobox.get()
-
-        # 시 콤보박스 초기화
-        self.cit_combobox.set("")
-        self.cit_combobox["values"] = []
-
-        # 선택된 도의 시 리스트를 가져와서 시 콤보박스를 업데이트
-        cities = Pro_City_Dic.korea_regions.get(selected_do, [])
-        self.cit_combobox["values"] = cities
-        self.cit_combobox.set(
-            self.cit_combobox["values"][0]
-        )  # 첫 번째 값으로 초기값 설정
-        # 지도 위치 업데이트
-        self.update_map()
-
-    def update_map(self):
+    def display_campsite_info(self, campsite):
+        #이걸로 상세탭으로 전환
         pass
+    def display_results(self, results):
+        for widget in self.results_frame_inner.winfo_children():
+            widget.destroy()
+        for campsite in results:
+            frame = Frame(self.results_frame_inner)
+            frame.pack(fill="x", padx=5, pady=5)
+
+            # 결과를 클릭할 수 있는 버튼 생성
+            result_button = Button(
+                frame,
+                text=f"이름: {campsite['name']}",
+                command=lambda campsite=campsite: self.display_campsite_info(campsite),
+            )
+            result_button.pack(anchor="w")
 
     def search_campsites(self):
-        search_term = search_var.get().lower()
+        search_term = self.search_var.get().lower()
         results = [
             campsite for campsite in self.Campsites if search_term in campsite["name"].lower()
         ]
-        display_results(results)
+        self.display_results(results)
