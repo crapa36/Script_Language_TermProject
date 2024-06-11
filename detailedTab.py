@@ -162,15 +162,21 @@ class DetailedTab:
         # 찜하기 버튼
         self.button_frame = Frame(self.frame)
         self.button_frame.place(x=1520, y=220)
-        self.bookmark_button = Button(self.button_frame, text="찜하기", command=self.add_to_bookmarks)
+        self.bookmark_button = Button(
+            self.button_frame, text="찜하기", command=self.add_to_bookmarks
+        )
         self.bookmark_button.pack(side=TOP)
 
-        #텔레그램 버튼
-        self.bookmark_button = Button(self.button_frame, text="텔레그램")
+        # 텔레그램 버튼
+        self.bookmark_button = Button(
+            self.button_frame, text="텔레그램", command=self.send_telegram_message
+        )
         self.bookmark_button.pack(side=TOP)
 
         # 이메일 버튼
-        self.bookmark_button = Button(self.button_frame, text="이메일")
+        self.bookmark_button = Button(
+            self.button_frame, text="이메일", command=self.send_telegram_message
+        )
         self.bookmark_button.pack(side=TOP)
 
     def update_map(self):
@@ -229,12 +235,27 @@ class DetailedTab:
             self.zoom -= 1
             self.update_map()
 
-    def send_telegram_message(self, user, msg):
-        try:
-            bot.sendMessage(user, msg)
-        except Exception as e:
-            print(f"Error occurred while sending message: {e}")
+    def send_telegram_message(self):
+        msg = f"""
+        이름: {self.selected_campsite['name']}
+        주소: {self.selected_campsite['address']}
+        홈페이지: {self.selected_campsite['homepage']}
+        소개: {self.selected_campsite['intro']}
+        업종: {self.selected_campsite['induty']}
+        입지 구분: {self.selected_campsite['siteView']}
+        전화번호: {self.selected_campsite['telNum']}
+        예약 방법: {self.selected_campsite['reserve']}
+        운영 계절: {self.selected_campsite['openSeason']}
+        운영일: {self.selected_campsite['openDate']}
+        동물 동반 여부: {self.selected_campsite['animalAllow']}
+        부대시설: {self.selected_campsite['amenities']}
+        화로대: {self.selected_campsite['brazier']}
+        """
+        if msg:
+            try:
+                bot.sendMessage(5845654861, msg)
+            except Exception as e:
+                print(f"Error occurred while sending message: {e}")
 
     def add_to_bookmarks(self):
-
         self.main_gui.add_to_bookmarks(self.selected_campsite)
