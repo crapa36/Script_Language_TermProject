@@ -63,6 +63,7 @@ def get_campsite_info_by_name(name):
             return campsite
     return None
 
+
 def update_results():
     results = campsites
     if weekday_var.get():
@@ -72,69 +73,44 @@ def update_results():
     display_results(results)
 
 
+def display_campsite_info(campsite):
+    print(f"이름: {campsite['name']}")
+    print(f"주소: {campsite['address']}")
+    print(f"위도: {campsite['lat']}")
+    print(f"경도: {campsite['lng']}")
+    print(f"홈페이지: {campsite['homepage']}")
+    print(f"소개: {campsite['intro']}")
+    print(f"업종: {campsite['induty']}")
+    print(f"입지 구분: {campsite['siteView']}")
+    print(f"전화번호: {campsite['telNum']}")
+    print(f"예약 방법: {campsite['reserve']}")
+    print(f"운영계절: {campsite['openSeason']}")
+    print(f"운영일: {campsite['openDate']}")
+    print(f"동물 허용: {campsite['animalAllow']}")
+    print(f"부대시설: {campsite['amenities']}")
+    print(f"화로대: {campsite['brazier']}")
+
+
 def display_results(results):
     for widget in results_frame_inner.winfo_children():
         widget.destroy()
-
     for campsite in results:
         frame = Frame(results_frame_inner)
         frame.pack(fill="x", padx=5, pady=5)
 
-        name_label = Label(frame, text=f"이름: {campsite['name']}")
-        name_label.pack(anchor="w")
-
-        address_label = Label(frame, text=f"주소: {campsite['address']}")
-        address_label.pack(anchor="w")
-
-        lat_label = Label(frame, text=f"위도: {campsite['lat']}")
-        lat_label.pack(anchor="w")
-
-        lng_label = Label(frame, text=f"경도: {campsite['lng']}")
-        lng_label.pack(anchor="w")
-
-        homepage_label = Label(frame, text=f"홈페이지: {campsite['homepage']}")
-        homepage_label.pack(anchor="w")
-
-        intro_label = Label(
-            frame, text=f"소개: {campsite['intro']}", wraplength=750, justify=LEFT
+        # 결과를 클릭할 수 있는 버튼 생성
+        result_button = Button(
+            frame,
+            text=f"이름: {campsite['name']}",
+            command=lambda campsite=campsite: display_campsite_info(campsite),
         )
-        intro_label.pack(anchor="w")
-
-        induty_label = Label(frame, text=f"업종: {campsite['induty']}")
-        induty_label.pack(anchor="w")
-
-        siteView_label = Label(frame, text=f"입지 구분: {campsite['siteView']}")
-        siteView_label.pack(anchor="w")
-
-        telNum_label = Label(frame, text=f"전화번호: {campsite['telNum']}")
-        telNum_label.pack(anchor="w")
-
-        reserve_label = Label(frame, text=f"예약 방법: {campsite['reserve']}")
-        reserve_label.pack(anchor="w")
-
-        openSeason_label = Label(frame, text=f"운영계절: {campsite['openSeason']}")
-        openSeason_label.pack(anchor="w")
-
-        openDate_label = Label(frame, text=f"운영일: {campsite['openDate']}")
-        openDate_label.pack(anchor="w")
-
-        animalAllow_label = Label(frame, text=f"동물 허용: {campsite['animalAllow']}")
-        animalAllow_label.pack(anchor="w")
-
-        amenities_label = Label(frame, text=f"부대시설: {campsite['amenities']}")
-        amenities_label.pack(anchor="w")
-
-        brazier_label = Label(frame, text=f"화로대: {campsite['brazier']}")
-        brazier_label.pack(anchor="w")
-
-        separator = Label(frame, text="-" * 50)
-        separator.pack(anchor="w")
+        result_button.pack(anchor="w")
 
 
 # GUI 설정
 root = Tk()
 root.title("캠핑장 검색")
-root.geometry("800x600")  # 창 크기 설정
+root.geometry("1200x900")  # 창 크기 설정
 
 # 검색 창과 버튼
 search_var = StringVar()
