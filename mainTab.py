@@ -43,9 +43,7 @@ class MainTab:
         self.Google_API_Key = "AIzaSyCzFgc9OGnXckq1-JNhSCVGo9zIq1kSWcE"
         self.gmaps = Client(key=self.Google_API_Key)
 
-        # 지도의 초기 위치를 서울특별시로 설정
-        self.address = "서울특별시"
-        self.zoom = 13
+        self.zoom = 10
 
         # 도 콤보박스
         self.pro_combobox = ttk.Combobox(frameL)
@@ -81,15 +79,14 @@ class MainTab:
         selected_location = self.pro_combobox.get() + " " + self.cit_combobox.get()
         center = self.gmaps.geocode(selected_location)[0]["geometry"]["location"]
 
-        markers = ""
+        map_url = f"https://maps.googleapis.com/maps/api/staticmap?center={center['lat']},{center['lng']}&zoom={self.zoom}&size=800x500&maptype=roadmap"
 
+        # 서울시 구별 병원 위치 마커 추가
         for campsite in self.Mcampsites:
-            markers += f"&markers=color:red%7Clabel:S%7C{campsite['lat']},{campsite['lng']}"
-        #마커가 왜 안될까
-
-        map_url = (f"https://maps.googleapis.com/maps/api/staticmap?center={center['lat']},{center['lng']}&zoom={self.zoom}&size=800x500&maptype=roadmap"
-                   f"{markers}"
-                   )
+            if campsite["lat"] and campsite["lng"]:
+                lat, lng = float(campsite["lat"]), float(campsite["lng"])
+                marker_url = f"&markers=color:red%7C{lat},{lng}"
+                map_url += marker_url
 
         # 지도 이미지 다운로드
         response = requests.get(map_url + "&key=" + self.Google_API_Key)
