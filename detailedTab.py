@@ -159,9 +159,19 @@ class DetailedTab:
         )
         self.brazier_label.pack(side=TOP, anchor="w")
 
-        # 우상단 버튼
-        self.button = Button(trait_frame, text="찜하기", command=self.add_to_bookmarks)
-        self.button.place(relx=1, rely=0, anchor="ne")
+        # 찜하기 버튼
+        self.button_frame = Frame(self.frame)
+        self.button_frame.place(x=1520, y=220)
+        self.bookmark_button = Button(self.button_frame, text="찜하기", command=self.add_to_bookmarks)
+        self.bookmark_button.pack(side=TOP)
+
+        #텔레그램 버튼
+        self.bookmark_button = Button(self.button_frame, text="텔레그램")
+        self.bookmark_button.pack(side=TOP)
+
+        # 이메일 버튼
+        self.bookmark_button = Button(self.button_frame, text="이메일")
+        self.bookmark_button.pack(side=TOP)
 
     def update_map(self):
 
