@@ -14,21 +14,34 @@ class MainTab:
         self.frame = Frame(notebook)
         notebook.add(self.frame, text="메인")
 
-        self.Mcampsites = campsites
-
+        self.Campsites = campsites
+        self.filteredCampsites = campsites
         self.canvas = Canvas(self.frame, width=1200, height=900, bg="white")
         self.canvas.pack(expand=True, fill="both")
 
         # 좌측 체크박스
         self.canvas.create_rectangle(20, 20, 400 - 20, 900 - 20, tags="CheckList")
-        frameC = Frame(self.frame)
-        frameC.place(x=30, y=30)
-        self.CheckBox1 = IntVar()
-        Checkbutton(frameC, text="캐러반", variable=self.CheckBox1).pack(side=TOP)
-        self.CheckBox2 = IntVar()
-        Checkbutton(frameC, text="카캠핑", variable=self.CheckBox2).pack(side=TOP)
-        self.CheckBox3 = IntVar()
-        Checkbutton(frameC, text="글램핑", variable=self.CheckBox3).pack(side=TOP)
+        checkbox_frame = Frame(self.frame)
+        checkbox_frame.place(x=30, y=30)
+        self.weekday_var = BooleanVar()
+        weekday_checkbox = Checkbutton(
+            checkbox_frame,
+            text="평일 운영",
+            variable=self.weekday_var,  # self 추가
+            command=self.update_map,
+        )
+        weekday_checkbox.grid(row=0, column=0)
+
+        self.weekend_var = BooleanVar()
+        weekend_checkbox = Checkbutton(
+            checkbox_frame,
+            text="주말 운영",
+            variable=self.weekend_var,  # self 추가
+            command=self.update_map,
+        )
+        weekend_checkbox.grid(row=0, column=1)
+
+        self.filterCampsites()
         # 상세항목
         self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 300 - 20, tags="Details")
 
@@ -43,7 +56,7 @@ class MainTab:
         self.Google_API_Key = "AIzaSyCzFgc9OGnXckq1-JNhSCVGo9zIq1kSWcE"
         self.gmaps = Client(key=self.Google_API_Key)
 
-        self.zoom = 10
+        self.zoom = 7
 
         # 도 콤보박스
         self.pro_combobox = ttk.Combobox(frameL)
@@ -74,15 +87,30 @@ class MainTab:
         # 지도 이미지 라벨 배치
         self.map_label.pack()  # 콤보박스 아래에 배치
 
+    def filterCampsites(self):
+        self.filteredCampsites = self.Campsites
+        if self.weekday_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "평일" in campsite["openDate"]
+            ]
+        if self.weekend_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "주말" in campsite["openDate"]
+            ]
+
     def update_map(self):
         # 지도의 중심을 콤보박스에서 선택한 위치로 설정
         selected_location = self.pro_combobox.get() + " " + self.cit_combobox.get()
         center = self.gmaps.geocode(selected_location)[0]["geometry"]["location"]
 
         map_url = f"https://maps.googleapis.com/maps/api/staticmap?center={center['lat']},{center['lng']}&zoom={self.zoom}&size=800x500&maptype=roadmap"
+        self.filterCampsites()
+        for campsite in self.filteredCampsites:
 
-        # 서울시 구별 병원 위치 마커 추가
-        for campsite in self.Mcampsites:
             if campsite["lat"] and campsite["lng"]:
                 lat, lng = float(campsite["lat"]), float(campsite["lng"])
                 marker_url = f"&markers=color:red%7C{lat},{lng}"
