@@ -110,7 +110,7 @@ class DetailedTab:
 
         self.openSeason_lable = Label(
             trait_frame,
-            text="계절: " + selected_campsite["openSeason"],
+            text="운영 계절: " + selected_campsite["openSeason"],
             font=30,
             bg="white",
         )
@@ -173,3 +173,31 @@ class DetailedTab:
         # 지도 이미지 라벨 업데이트
         self.map_label.configure(image=photo)
         self.map_label.image = photo
+
+    def update_labels(self):
+        self.address_label.config(text=self.selected_campsite["address"])
+        self.homepage_label.config(text=self.selected_campsite["homepage"])
+        self.telNum_label.config(text=self.selected_campsite["telNum"])
+        self.reserve_label.config(text=self.selected_campsite["reserve"])
+        self.name_label.config(text="이름: " + self.selected_campsite["name"])
+        self.intro_label.config(text=self.selected_campsite["intro"])
+        self.induty_label.config(text="업종: " + self.selected_campsite["induty"])
+        self.siteView_label.config(text="입지: " + self.selected_campsite["siteView"])
+        self.openSeason_lable.config(
+            text="운영 계절: " + self.selected_campsite["openSeason"]
+        )
+        self.openDate_label.config(text="운영일: " + self.selected_campsite["openDate"])
+        self.animalAllow_lable.config(
+            text="동물 동반 여부: " + str(self.selected_campsite["animalAllow"])
+        )
+        self.amenities_label.config(
+            text="부대시설: " + self.selected_campsite["amenities"]
+        )
+        self.brazier_label.config(
+            text="화로대: " + str(self.selected_campsite["brazier"])
+        )
+
+    def update(self, selected_campsite):
+        self.selected_campsite = selected_campsite
+        self.update_map()
+        self.update_labels()

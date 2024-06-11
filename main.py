@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk  # ttk 모듈 import
 from mainTab import MainTab
-from detailedTab import DetailedTab
+
 from bookmark import Bookmark
 from comparison import Comparison
 import requests
@@ -62,9 +62,8 @@ class MainGUI:
 
         # 탭 객체 생성 및 추가
         tab1 = MainTab(notebook, campsites)
-        selected_site = "(주)아웃오브파크"
-        selected_campsite = self.get_campsite_by_name(selected_site)
-        tab2 = DetailedTab(notebook, selected_campsite)
+
+        tab2 = tab1.DetailedTab
 
         tab3 = Bookmark(notebook, self.bookmarks)
         tab4 = Comparison(notebook, self.bookmarks)
