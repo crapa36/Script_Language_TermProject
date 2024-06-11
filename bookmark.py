@@ -1,23 +1,13 @@
 from tkinter import *
 
-#예시용
-bookmarked_list = [
-        "에버랜드 캠핑장",
-        "낙산해수욕장 캠핑장",
-        "용추계곡 캠핑장",
-        "지리산 국립공원 캠핑장",
-        "솔향기 캠핑장",
-        "남해국립공원 캠핑장",
-        "가평 푸른숲 캠핑장",
-        "춘천 봉의동 강가 캠핑장",
-        "덕포해수욕장 캠핑장",
-        "한라산 국립공원 캠핑장"
-]
+
 class Bookmark:
 
-    def __init__(self, notebook):
+    def __init__(self, notebook, bookmark_list):
         self.frame = Frame(notebook)
         notebook.add(self.frame, text="찜하기")
+
+        self.bookmark_list = bookmark_list
 
         self.canvas = Canvas(
             self.frame, width=1200, height=900, bg="white"
@@ -35,13 +25,23 @@ class Bookmark:
         bookmark_scroll.config(command=self.bookmark_listBox.yview)
         bookmark_scroll.pack(side=LEFT, fill="y")
         self.bookmark_listBox.config(yscrollcommand=bookmark_scroll.set)
+        self.bookmark_listBox.bind('<<ListboxSelect>>', self.on_select)
 
 
+        for N in self.bookmark_list:
+            self.bookmark_listBox.insert(END, N['name'])
 
-        for N in bookmarked_list:
-            self.bookmark_listBox.insert(END, N)
         # 상세항목
         self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 200 - 20, tags="Details")
 
+    def on_select(self, event):
+        # 선택된 항목의 인덱스 가져오기
+        index = self.bookmark_listBox.curselection()
+
+        # 선택된 캠핑장의 정보 가져오기
+        selected_campsite = self.bookmark_list[index[0]]
+
+        # 선택된 캠핑장의 정보 출력 (또는 다른 작업 수행)
+        print(selected_campsite)
 
 
