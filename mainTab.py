@@ -56,21 +56,25 @@ class MainTab:
         self.search_campsites()
 
     def create_checkboxes(self):
+
         # 입지구분에 대한 체크박스
         self.canvas.create_rectangle(20, 20, 400 - 20, 900 - 20, tags="CheckList")
         checkbox_frame = Frame(self.frame)
         checkbox_frame.place(x=30, y=30)
 
         # 운영일 체크박스
-        Label(checkbox_frame, text="운영일").grid(row=0, column=0, columnspan=1)
+        Label(checkbox_frame, text="운영일", anchor="w").grid(
+            row=0, column=0, columnspan=1, sticky="w"
+        )
         self.weekday_var = BooleanVar()
         weekday_checkbox = Checkbutton(
             checkbox_frame,
             text="평일 운영",
             variable=self.weekday_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        weekday_checkbox.grid(row=1, column=0)
+        weekday_checkbox.grid(row=1, column=0, sticky="w")
 
         self.weekend_var = BooleanVar()
         weekend_checkbox = Checkbutton(
@@ -78,19 +82,23 @@ class MainTab:
             text="주말 운영",
             variable=self.weekend_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        weekend_checkbox.grid(row=1, column=1)
+        weekend_checkbox.grid(row=1, column=1, sticky="w")
 
         # 계절 체크박스
-        Label(checkbox_frame, text="운영 계절").grid(row=2, column=0, columnspan=1)
+        Label(checkbox_frame, text="운영 계절", anchor="w").grid(
+            row=2, column=0, columnspan=1, sticky="w"
+        )
         self.spring_var = BooleanVar()
         spring_checkbox = Checkbutton(
             checkbox_frame,
             text="봄",
             variable=self.spring_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        spring_checkbox.grid(row=3, column=0)
+        spring_checkbox.grid(row=3, column=0, sticky="w")
 
         self.summer_var = BooleanVar()
         summer_checkbox = Checkbutton(
@@ -98,8 +106,9 @@ class MainTab:
             text="여름",
             variable=self.summer_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        summer_checkbox.grid(row=3, column=1)
+        summer_checkbox.grid(row=3, column=1, sticky="w")
 
         self.fall_var = BooleanVar()
         fall_checkbox = Checkbutton(
@@ -107,8 +116,9 @@ class MainTab:
             text="가을",
             variable=self.fall_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        fall_checkbox.grid(row=3, column=2)
+        fall_checkbox.grid(row=3, column=2, sticky="w")
 
         self.winter_var = BooleanVar()
         winter_checkbox = Checkbutton(
@@ -116,19 +126,23 @@ class MainTab:
             text="겨울",
             variable=self.winter_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        winter_checkbox.grid(row=3, column=3)
+        winter_checkbox.grid(row=3, column=3, sticky="w")
 
         # 입지 구분 체크박스
-        Label(checkbox_frame, text="입지 구분").grid(row=4, column=0, columnspan=1)
+        Label(checkbox_frame, text="입지 구분", anchor="w").grid(
+            row=4, column=0, columnspan=1, sticky="w"
+        )
         self.mountain_var = BooleanVar()
         mountain_checkbox = Checkbutton(
             checkbox_frame,
             text="산",
             variable=self.mountain_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        mountain_checkbox.grid(row=5, column=0)
+        mountain_checkbox.grid(row=5, column=0, sticky="w")
 
         self.forest_var = BooleanVar()
         forest_checkbox = Checkbutton(
@@ -136,8 +150,9 @@ class MainTab:
             text="숲",
             variable=self.forest_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        forest_checkbox.grid(row=5, column=1)
+        forest_checkbox.grid(row=5, column=1, sticky="w")
 
         self.river_var = BooleanVar()
         river_checkbox = Checkbutton(
@@ -145,8 +160,9 @@ class MainTab:
             text="강",
             variable=self.river_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        river_checkbox.grid(row=5, column=2)
+        river_checkbox.grid(row=5, column=2, sticky="w")
 
         self.beach_var = BooleanVar()
         beach_checkbox = Checkbutton(
@@ -154,19 +170,23 @@ class MainTab:
             text="해변",
             variable=self.beach_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        beach_checkbox.grid(row=5, column=3)
+        beach_checkbox.grid(row=5, column=3, sticky="w")
 
         # 동물 허용 여부 체크박스
-        Label(checkbox_frame, text="동물 허용 여부").grid(row=6, column=0, columnspan=1)
+        Label(checkbox_frame, text="동물 허용 여부", anchor="w").grid(
+            row=6, column=0, columnspan=1, sticky="w"
+        )
         self.animal_allow_var = BooleanVar()
         animal_allow_checkbox = Checkbutton(
             checkbox_frame,
             text="허용",
             variable=self.animal_allow_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        animal_allow_checkbox.grid(row=7, column=0)
+        animal_allow_checkbox.grid(row=7, column=0, sticky="w")
 
         self.animal_disallow_var = BooleanVar()
         animal_disallow_checkbox = Checkbutton(
@@ -174,19 +194,23 @@ class MainTab:
             text="미허용",
             variable=self.animal_disallow_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        animal_disallow_checkbox.grid(row=7, column=1)
+        animal_disallow_checkbox.grid(row=7, column=1, sticky="w")
 
         # 부대시설 체크박스
-        Label(checkbox_frame, text="부대시설").grid(row=8, column=0, columnspan=1)
+        Label(checkbox_frame, text="부대시설", anchor="w").grid(
+            row=8, column=0, columnspan=1, sticky="w"
+        )
         self.electricity_var = BooleanVar()
         electricity_checkbox = Checkbutton(
             checkbox_frame,
             text="전기",
             variable=self.electricity_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        electricity_checkbox.grid(row=9, column=0)
+        electricity_checkbox.grid(row=9, column=0, sticky="w")
 
         self.internet_var = BooleanVar()
         internet_checkbox = Checkbutton(
@@ -194,8 +218,9 @@ class MainTab:
             text="무선인터넷",
             variable=self.internet_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        internet_checkbox.grid(row=9, column=1)
+        internet_checkbox.grid(row=9, column=1, sticky="w")
 
         self.firewood_var = BooleanVar()
         firewood_checkbox = Checkbutton(
@@ -203,8 +228,9 @@ class MainTab:
             text="장작판매",
             variable=self.firewood_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        firewood_checkbox.grid(row=9, column=2)
+        firewood_checkbox.grid(row=9, column=2, sticky="w")
 
         self.hotwater_var = BooleanVar()
         hotwater_checkbox = Checkbutton(
@@ -212,8 +238,9 @@ class MainTab:
             text="온수",
             variable=self.hotwater_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        hotwater_checkbox.grid(row=9, column=3)
+        hotwater_checkbox.grid(row=9, column=3, sticky="w")
 
         self.waterplay_var = BooleanVar()
         waterplay_checkbox = Checkbutton(
@@ -221,8 +248,9 @@ class MainTab:
             text="물놀이장",
             variable=self.waterplay_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        waterplay_checkbox.grid(row=10, column=0)
+        waterplay_checkbox.grid(row=10, column=0, sticky="w")
 
         self.playground_var = BooleanVar()
         playground_checkbox = Checkbutton(
@@ -230,8 +258,9 @@ class MainTab:
             text="놀이터",
             variable=self.playground_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        playground_checkbox.grid(row=10, column=1)
+        playground_checkbox.grid(row=10, column=1, sticky="w")
 
         self.exercise_var = BooleanVar()
         exercise_checkbox = Checkbutton(
@@ -239,8 +268,9 @@ class MainTab:
             text="운동시설",
             variable=self.exercise_var,
             command=self.filterCampsites,
+            anchor="w",
         )
-        exercise_checkbox.grid(row=10, column=2)
+        exercise_checkbox.grid(row=10, column=2, sticky="w")
 
     def filterCampsites(self):
         self.filteredCampsites = self.Campsites

@@ -201,3 +201,13 @@ class DetailedTab:
         self.selected_campsite = selected_campsite
         self.update_map()
         self.update_labels()
+
+    # 이 아래로 버튼 추가 필요
+    def zoom_in(self):
+        self.zoom += 1
+        self.update_map()
+
+    def zoom_out(self):
+        if self.zoom > 2:
+            self.zoom -= 1
+            self.update_map()
