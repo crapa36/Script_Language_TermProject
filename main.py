@@ -77,7 +77,8 @@ class MainGUI:
         return None
 
     def add_to_bookmarks(self, campsite):
-        self.bookmarks.append(campsite)
+        if campsite not in self.bookmarks:
+            self.bookmarks.append(campsite)
 
 
 MainGUI(campsites)
