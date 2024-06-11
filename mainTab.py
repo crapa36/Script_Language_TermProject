@@ -14,7 +14,7 @@ class MainTab:
         self.canvas = Canvas(self.frame, width=1200, height=900, bg="white")
         self.canvas.pack(expand=True, fill="both")
 
-        # 좌측 체크박스
+        # 입지구분에 대한 체크박스
         self.canvas.create_rectangle(20, 20, 400 - 20, 900 - 20, tags="CheckList")
         checkbox_frame = Frame(self.frame)
         checkbox_frame.place(x=30, y=30)
@@ -36,7 +36,44 @@ class MainTab:
         )
         weekend_checkbox.grid(row=0, column=1)
 
-        self.filterCampsites()
+        # 입지 구분 체크박스
+        self.mountain_var = BooleanVar()
+        mountain_checkbox = Checkbutton(
+            checkbox_frame,
+            text="산",
+            variable=self.mountain_var,  # self 추가
+            command=self.filterCampsites,
+        )
+        mountain_checkbox.grid(row=1, column=0)
+
+        self.forest_var = BooleanVar()
+        forest_checkbox = Checkbutton(
+            checkbox_frame,
+            text="숲",
+            variable=self.forest_var,  # self 추가
+            command=self.filterCampsites,
+        )
+        forest_checkbox.grid(row=1, column=1)
+
+        self.river_var = BooleanVar()
+        river_checkbox = Checkbutton(
+            checkbox_frame,
+            text="강",
+            variable=self.river_var,  # self 추가
+            command=self.filterCampsites,
+        )
+        river_checkbox.grid(row=1, column=2)
+
+        self.beach_var = BooleanVar()
+        beach_checkbox = Checkbutton(
+            checkbox_frame,
+            text="해변",
+            variable=self.beach_var,  # self 추가
+            command=self.filterCampsites,
+        )
+        beach_checkbox.grid(row=1, column=3)
+
+
         # 검색창
         self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 65 - 20, tags="Details")
 
@@ -64,8 +101,6 @@ class MainTab:
         self.results_frame_inner = Frame(self.results_canvas)
         self.results_canvas.create_window((0, 0), window=self.results_frame_inner, anchor="nw")
 
-
-
     def filterCampsites(self):
         self.filteredCampsites = self.Campsites
         if self.weekday_var.get() == True:
@@ -80,6 +115,31 @@ class MainTab:
                 for campsite in self.filteredCampsites
                 if "주말" in campsite["openDate"]
             ]
+        if self.mountain_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "산" in campsite["siteView"]
+            ]
+        if self.forest_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "숲" in campsite["siteView"]
+            ]
+        if self.river_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "강" in campsite["siteView"]
+            ]
+        if self.beach_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "해변" in campsite["siteView"]
+            ]
+        self.display_results(self.filteredCampsites)
 
     def display_campsite_info(self, campsite):
         #이걸로 상세탭으로 전환
