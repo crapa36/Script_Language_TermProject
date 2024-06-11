@@ -85,7 +85,7 @@ class MainTab:
 
         for campsite in self.Mcampsites:
             markers += f"&markers=color:red%7Clabel:S%7C{campsite['lat']},{campsite['lng']}"
-
+        #마커가 왜 안될까
 
         map_url = (f"https://maps.googleapis.com/maps/api/staticmap?center={center['lat']},{center['lng']}&zoom={self.zoom}&size=800x500&maptype=roadmap"
                    f"{markers}"
