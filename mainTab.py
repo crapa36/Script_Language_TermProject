@@ -476,6 +476,7 @@ class MainTab:
                 command=lambda campsite=campsite: self.display_campsite_info(campsite),
             )
             result_button.pack(anchor="w")
+        self.results_canvas.configure(scrollregion=self.results_canvas.bbox("all"))
 
     def search_campsites(self):
         search_term = self.search_var.get().lower()
