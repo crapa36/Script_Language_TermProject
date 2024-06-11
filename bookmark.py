@@ -121,4 +121,6 @@ class Bookmark:
         self.additional_facilities_label.config(text='부대시설: ' + selected_campsite['amenities'])
         self.brazier_stand_label.config(text='화로대: ' + selected_campsite['brazier'])
 
-
+    def update(self, bookmark_list):
+        self.bookmark_list = bookmark_list
+        self.bookmark_listBox["values"] = [N["name"] for N in self.bookmark_list]
