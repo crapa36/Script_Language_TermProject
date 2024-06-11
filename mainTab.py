@@ -17,8 +17,46 @@ class MainTab:
         self.canvas = Canvas(self.frame, width=1200, height=900, bg="white")
         self.canvas.pack(expand=True, fill="both")
 
-        # 입지구분에 대한 체크박스
+        # 검색창
+        self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 65 - 20, tags="Details")
 
+        self.search_var = StringVar()
+        search_entry = Entry(
+            self.frame, textvariable=self.search_var, width=105, font=300
+        )
+        search_entry.place(x=400 + 20, y=20)
+
+        search_button = Button(self.frame, text="검색", command=self.search_campsites)
+        search_button.place(x=1550, y=20)
+        self.create_checkboxes()
+        # 검색결과
+        self.results_frame = Frame(self.frame)
+        self.results_frame.place(x=400 + 20, y=100 + 20)
+
+        self.results_canvas = Canvas(self.results_frame, width=1100, height=700)
+        self.results_canvas.pack(side=LEFT, fill=BOTH, expand=True)
+
+        scrollbar = Scrollbar(
+            self.results_frame, orient=VERTICAL, command=self.results_canvas.yview
+        )
+        scrollbar.pack(side=RIGHT, fill=Y)
+
+        self.results_canvas.configure(yscrollcommand=scrollbar.set)
+        self.results_canvas.bind(
+            "<Configure>",
+            lambda e: self.results_canvas.configure(
+                scrollregion=self.results_canvas.bbox("all")
+            ),
+        )
+
+        self.results_frame_inner = Frame(self.results_canvas)
+        self.results_canvas.create_window(
+            (0, 0), window=self.results_frame_inner, anchor="nw"
+        )
+        self.search_campsites()
+
+    def create_checkboxes(self):
+        # 입지구분에 대한 체크박스
         self.canvas.create_rectangle(20, 20, 400 - 20, 900 - 20, tags="CheckList")
         checkbox_frame = Frame(self.frame)
         checkbox_frame.place(x=30, y=30)
@@ -50,7 +88,7 @@ class MainTab:
             variable=self.mountain_var,  # self 추가
             command=self.filterCampsites,
         )
-        weekend_checkbox.grid(row=1, column=1)
+        mountain_checkbox.grid(row=1, column=1)
 
         # 계절 체크박스
         Label(checkbox_frame, text="운영 계절").grid(row=2, column=0, columnspan=4)
@@ -212,43 +250,6 @@ class MainTab:
             command=self.filterCampsites,
         )
         exercise_checkbox.grid(row=10, column=2)
-
-        # 검색창
-        self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 65 - 20, tags="Details")
-
-        self.search_var = StringVar()
-        search_entry = Entry(
-            self.frame, textvariable=self.search_var, width=105, font=300
-        )
-        search_entry.place(x=400 + 20, y=20)
-
-        search_button = Button(self.frame, text="검색", command=self.search_campsites)
-        search_button.place(x=1550, y=20)
-
-        # 검색결과
-        self.results_frame = Frame(self.frame)
-        self.results_frame.place(x=400 + 20, y=100 + 20)
-
-        self.results_canvas = Canvas(self.results_frame, width=1100, height=700)
-        self.results_canvas.pack(side=LEFT, fill=BOTH, expand=True)
-
-        scrollbar = Scrollbar(
-            self.results_frame, orient=VERTICAL, command=self.results_canvas.yview
-        )
-        scrollbar.pack(side=RIGHT, fill=Y)
-
-        self.results_canvas.configure(yscrollcommand=scrollbar.set)
-        self.results_canvas.bind(
-            "<Configure>",
-            lambda e: self.results_canvas.configure(
-                scrollregion=self.results_canvas.bbox("all")
-            ),
-        )
-
-        self.results_frame_inner = Frame(self.results_canvas)
-        self.results_canvas.create_window(
-            (0, 0), window=self.results_frame_inner, anchor="nw"
-        )
 
     def filterCampsites(self):
         self.filteredCampsites = self.Campsites
