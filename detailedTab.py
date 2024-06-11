@@ -87,7 +87,6 @@ class DetailedTab:
         trait_frame.place(x=800 + 40, y=200 + 40)
 
         # 업종, 입지 구분, 운영계절, 운영일, 동물 허용, 부대시설, 화로대
-
         self.induty_label = Label(
             trait_frame,
             text="업종: " + selected_campsite["induty"],
@@ -155,6 +154,10 @@ class DetailedTab:
             bg="white",
         )
         self.brazier_label.pack(side=TOP, anchor="w")
+
+        # 우상단 버튼
+        self.button = Button(trait_frame, text="찜하기")
+        self.button.place(relx=1, rely=0, anchor="ne")
 
     def update_map(self):
 
