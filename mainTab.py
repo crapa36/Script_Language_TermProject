@@ -136,6 +136,71 @@ class MainTab:
         )
         animal_disallow_checkbox.grid(row=7, column=1)
 
+        # 부대시설 체크박스
+        Label(checkbox_frame, text="부대시설").grid(row=8, column=0, columnspan=7)
+        self.electricity_var = BooleanVar()
+        electricity_checkbox = Checkbutton(
+            checkbox_frame,
+            text="전기",
+            variable=self.electricity_var,
+            command=self.filterCampsites,
+        )
+        electricity_checkbox.grid(row=9, column=0)
+
+        self.internet_var = BooleanVar()
+        internet_checkbox = Checkbutton(
+            checkbox_frame,
+            text="무선인터넷",
+            variable=self.internet_var,
+            command=self.filterCampsites,
+        )
+        internet_checkbox.grid(row=9, column=1)
+
+        self.firewood_var = BooleanVar()
+        firewood_checkbox = Checkbutton(
+            checkbox_frame,
+            text="장작판매",
+            variable=self.firewood_var,
+            command=self.filterCampsites,
+        )
+        firewood_checkbox.grid(row=9, column=2)
+
+        self.hotwater_var = BooleanVar()
+        hotwater_checkbox = Checkbutton(
+            checkbox_frame,
+            text="온수",
+            variable=self.hotwater_var,
+            command=self.filterCampsites,
+        )
+        hotwater_checkbox.grid(row=9, column=3)
+
+        self.waterplay_var = BooleanVar()
+        waterplay_checkbox = Checkbutton(
+            checkbox_frame,
+            text="물놀이장",
+            variable=self.waterplay_var,
+            command=self.filterCampsites,
+        )
+        waterplay_checkbox.grid(row=10, column=0)
+
+        self.playground_var = BooleanVar()
+        playground_checkbox = Checkbutton(
+            checkbox_frame,
+            text="놀이터",
+            variable=self.playground_var,
+            command=self.filterCampsites,
+        )
+        playground_checkbox.grid(row=10, column=1)
+
+        self.exercise_var = BooleanVar()
+        exercise_checkbox = Checkbutton(
+            checkbox_frame,
+            text="운동시설",
+            variable=self.exercise_var,
+            command=self.filterCampsites,
+        )
+        exercise_checkbox.grid(row=10, column=2)
+
         # 검색창
         self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 65 - 20, tags="Details")
 
@@ -236,6 +301,48 @@ class MainTab:
                 campsite
                 for campsite in self.filteredCampsites
                 if "불" in campsite["animalAllow"]
+            ]
+        if self.electricity_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "전기" in campsite["amenities"]
+            ]
+        if self.internet_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "무선인터넷" in campsite["amenities"]
+            ]
+        if self.firewood_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "장작판매" in campsite["amenities"]
+            ]
+        if self.hotwater_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "온수" in campsite["amenities"]
+            ]
+        if self.waterplay_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "물놀이장" in campsite["amenities"]
+            ]
+        if self.playground_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "놀이터" in campsite["amenities"]
+            ]
+        if self.exercise_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "운동시설" in campsite["amenities"]
             ]
         self.display_results(self.filteredCampsites)
 
