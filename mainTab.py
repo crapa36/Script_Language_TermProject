@@ -37,12 +37,17 @@ class MainTab:
         weekend_checkbox.grid(row=0, column=1)
 
         self.filterCampsites()
-        # 상세항목
-        self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 300 - 20, tags="Details")
+        # 검색창
+        self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 65 - 20, tags="Details")
+
+
+        search_var = StringVar()
+        search_entry = Entry(self.frame, textvariable=search_var, width=105, font=300)
+        search_entry.place(x=400+20, y=20)
 
         # 지도탭
         self.canvas.create_rectangle(
-            400 + 20, 300 + 20, 1600 - 20, 900 - 20, tags="Details"
+            400 + 20, 300 + 20, 1600 - 20, 900 - 20, tags="map"
         )
         frameL = Frame(self.frame)
         frameL.place(x=400 + 20, y=300 + 20)
@@ -102,3 +107,10 @@ class MainTab:
 
     def update_map(self):
         pass
+
+    def search_campsites(self):
+        search_term = search_var.get().lower()
+        results = [
+            campsite for campsite in self.Campsites if search_term in campsite["name"].lower()
+        ]
+        display_results(results)
