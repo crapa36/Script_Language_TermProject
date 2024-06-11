@@ -46,7 +46,7 @@ for item in items:
     campsites.append(campsite)
 
 class MainGUI:
-    def __init__(self):
+    def __init__(self, campsites):
         window = Tk()
         window.title("캠핑가자")
 
@@ -54,11 +54,13 @@ class MainGUI:
         notebook = ttk.Notebook(window)
         notebook.pack(expand=True, fill="both")
 
+        self.campsites = campsites
+
         #상세에 보일 사이트
         selected_site = "캠프더포레"
 
         # 탭 객체 생성 및 추가
-        tab1 = MainTab(notebook)
+        tab1 = MainTab(notebook, campsites)
         tab2 = DetailedTab(notebook)
         tab2.update(self.get_campsite_by_name(selected_site))  # 첫 번째 캠핑장 정보로 업데이트
         tab3 = Bookmark(notebook)
@@ -67,10 +69,10 @@ class MainGUI:
         window.mainloop()
 
     def get_campsite_by_name(self, name):
-        for campsite in campsites:
+        for campsite in self.campsites:
             if campsite['name'] == name:
                 return campsite
         return None
 
-MainGUI()
+MainGUI(campsites)
 
