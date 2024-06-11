@@ -61,12 +61,12 @@ class MainGUI:
         self.bookmarks = []
 
         # 탭 객체 생성 및 추가
-        tab1 = MainTab(notebook, campsites, MainGUI)
+        self.tab1 = MainTab(notebook, campsites, self)
 
-        tab2 = tab1.DetailedTab
+        self.tab2 = self.tab1.DetailedTab
 
-        tab3 = Bookmark(notebook, self.bookmarks)
-        tab4 = Comparison(notebook, self.bookmarks)
+        self.tab3 = Bookmark(notebook, self.bookmarks)
+        self.tab4 = Comparison(notebook, self.bookmarks)
 
         window.mainloop()
 
@@ -77,8 +77,11 @@ class MainGUI:
         return None
 
     def add_to_bookmarks(self, campsite):
-        if campsite not in self.bookmarks:
+        if not self.bookmarks or campsite not in self.bookmarks:
+
             self.bookmarks.append(campsite)
+            # self.tab3.update(self.bookmarks)
+            self.tab4.update(self.bookmarks)
 
 
 MainGUI(campsites)

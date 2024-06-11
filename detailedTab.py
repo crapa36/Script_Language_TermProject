@@ -226,4 +226,5 @@ class DetailedTab:
             print(f"Error occurred while sending message: {e}")
 
     def add_to_bookmarks(self):
+
         self.main_gui.add_to_bookmarks(self.selected_campsite)
