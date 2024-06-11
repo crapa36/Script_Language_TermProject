@@ -8,7 +8,6 @@ import requests
 import xml.etree.ElementTree as ET
 
 
-
 # 공공데이터 API 키
 api_key = "KZPiFTl7RsdgCF1Qz9UqM6hKAIib9ELWN7w9OIm3LiuHvM9VW269DvJoLJ5Luvxs3keNZqLAlzRi88mpophJBg%3D%3D"
 
@@ -46,6 +45,7 @@ for item in items:
     }
     campsites.append(campsite)
 
+
 class MainGUI:
     def __init__(self, campsites):
         window = Tk()
@@ -57,17 +57,15 @@ class MainGUI:
 
         self.campsites = campsites
 
-        #상세에 보일 사이트
-        selected_site = "(주)아웃오브파크"
-
-        #찜하기
+        # 찜하기
         self.bookmarks = []
 
         # 탭 객체 생성 및 추가
         tab1 = MainTab(notebook, campsites)
-        tab2 = DetailedTab(notebook, self.bookmarks)
-        tab2.update(self.get_campsite_by_name(selected_site))  # 첫 번째 캠핑장 정보로 업데이트
-        tab2.add_to_bookmarks(self.get_campsite_by_name(selected_site))
+        selected_site = "(주)아웃오브파크"
+        selected_campsite = self.get_campsite_by_name(selected_site)
+        tab2 = DetailedTab(notebook, selected_campsite)
+
         tab3 = Bookmark(notebook, self.bookmarks)
         tab4 = Comparison(notebook, self.bookmarks)
 
@@ -75,9 +73,9 @@ class MainGUI:
 
     def get_campsite_by_name(self, name):
         for campsite in self.campsites:
-            if campsite['name'] == name:
+            if campsite["name"] == name:
                 return campsite
         return None
 
-MainGUI(campsites)
 
+MainGUI(campsites)
