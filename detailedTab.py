@@ -160,7 +160,7 @@ class DetailedTab:
         self.brazier_label.pack(side=TOP, anchor="w")
 
         # 우상단 버튼
-        self.button = Button(trait_frame, text="찜하기")
+        self.button = Button(trait_frame, text="찜하기", command=self.add_to_bookmarks)
         self.button.place(relx=1, rely=0, anchor="ne")
 
     def update_map(self):
