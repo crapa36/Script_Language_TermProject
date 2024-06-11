@@ -28,9 +28,6 @@ class Comparison:
         self.bookmark_listBoxR = ttk.Combobox(right_frame, width=105)
         self.bookmark_listBoxR.pack(side=LEFT)
 
-        for N in self.bookmark_list:
-            self.bookmark_listBoxL.insert(END, N["name"])
-            self.bookmark_listBoxR.insert(END, N["name"])
 
     def update(self, bookmark_list):
         self.bookmark_list = bookmark_list
