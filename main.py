@@ -80,7 +80,7 @@ class MainGUI:
         if not self.bookmarks or campsite not in self.bookmarks:
 
             self.bookmarks.append(campsite)
-            # self.tab3.update(self.bookmarks)
+            self.tab3.update(self.bookmarks)
             self.tab4.update(self.bookmarks)
 
 

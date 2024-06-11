@@ -5,7 +5,6 @@ from detailedTab import DetailedTab
 
 
 class MainTab:
-
     def __init__(self, notebook, campsites, main_gui):
         self.frame = Frame(notebook)
         notebook.add(self.frame, text="메인")
@@ -29,6 +28,7 @@ class MainTab:
         search_button = Button(self.frame, text="검색", command=self.search_campsites)
         search_button.place(x=1550, y=20)
         self.create_checkboxes()
+
         # 검색결과
         self.results_frame = Frame(self.frame)
         self.results_frame.place(x=400 + 20, y=100 + 20)
@@ -36,12 +36,12 @@ class MainTab:
         self.results_canvas = Canvas(self.results_frame, width=1100, height=700)
         self.results_canvas.pack(side=LEFT, fill=BOTH, expand=True)
 
-        scrollbar = Scrollbar(
+        self.scrollbar = Scrollbar(
             self.results_frame, orient=VERTICAL, command=self.results_canvas.yview
         )
-        scrollbar.pack(side=RIGHT, fill=Y)
+        self.scrollbar.pack(side=RIGHT, fill=Y)
 
-        self.results_canvas.configure(yscrollcommand=scrollbar.set)
+        self.results_canvas.configure(yscrollcommand=self.scrollbar.set)
         self.results_canvas.bind(
             "<Configure>",
             lambda e: self.results_canvas.configure(
@@ -456,33 +456,27 @@ class MainTab:
                 for campsite in self.filteredCampsites
                 if "글램핑" in campsite["induty"]
             ]
-        self.display_results(self.filteredCampsites)
+
+    def search_campsites(self):
+        query = self.search_var.get().lower()
+        for widget in self.results_frame_inner.winfo_children():
+            widget.destroy()
+        row = 0
+        for campsite in self.filteredCampsites:
+            if query in campsite["name"].lower():
+                button = Button(
+                    self.results_frame_inner,
+                    text=campsite["name"],
+                    width=100,
+                    command=lambda campsite=campsite: self.display_campsite_info(
+                        campsite
+                    ),
+                )
+                button.grid(row=row, column=0, padx=5, pady=5, sticky="w")
+                row += 1
+        self.results_canvas.update_idletasks()
+        self.results_canvas.configure(scrollregion=self.results_canvas.bbox("all"))
 
     def display_campsite_info(self, selected_campsite):
         self.DetailedTab.update(selected_campsite)
         self.notebook.select(1)
-
-    def display_results(self, results):
-        for widget in self.results_frame_inner.winfo_children():
-            widget.destroy()
-        for campsite in results:
-            frame = Frame(self.results_frame_inner)
-            frame.pack(fill="x", padx=5, pady=5)
-
-            # 결과를 클릭할 수 있는 버튼 생성
-            result_button = Button(
-                frame,
-                text=f"이름: {campsite['name']}",
-                command=lambda campsite=campsite: self.display_campsite_info(campsite),
-            )
-            result_button.pack(anchor="w")
-        self.results_canvas.configure(scrollregion=self.results_canvas.bbox("all"))
-
-    def search_campsites(self):
-        search_term = self.search_var.get().lower()
-        results = [
-            campsite
-            for campsite in self.Campsites
-            if search_term in campsite["name"].lower()
-        ]
-        self.display_results(results)
