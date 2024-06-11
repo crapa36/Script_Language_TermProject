@@ -467,7 +467,7 @@ class MainTab:
                 button = Button(
                     self.results_frame_inner,
                     text=campsite["name"],
-                    width=100,
+                    width=155,
                     command=lambda campsite=campsite: self.display_campsite_info(
                         campsite
                     ),
