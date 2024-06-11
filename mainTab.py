@@ -73,6 +73,61 @@ class MainTab:
         )
         beach_checkbox.grid(row=1, column=3)
 
+        # 운영 계절 체크박스
+        self.spring_var = BooleanVar()
+        spring_checkbox = Checkbutton(
+            checkbox_frame,
+            text="봄",
+            variable=self.spring_var,  # self 추가
+            command=self.filterCampsites,
+        )
+        spring_checkbox.grid(row=2, column=0)
+
+        self.summer_var = BooleanVar()
+        summer_checkbox = Checkbutton(
+            checkbox_frame,
+            text="여름",
+            variable=self.summer_var,  # self 추가
+            command=self.filterCampsites,
+        )
+        summer_checkbox.grid(row=2, column=1)
+
+        self.fall_var = BooleanVar()
+        fall_checkbox = Checkbutton(
+            checkbox_frame,
+            text="가을",
+            variable=self.fall_var,  # self 추가
+            command=self.filterCampsites,
+        )
+        fall_checkbox.grid(row=2, column=2)
+
+        self.winter_var = BooleanVar()
+        winter_checkbox = Checkbutton(
+            checkbox_frame,
+            text="겨울",
+            variable=self.winter_var,  # self 추가
+            command=self.filterCampsites,
+        )
+        winter_checkbox.grid(row=2, column=3)
+
+        # 동물 허용 체크박스
+        self.animal_allow_var = BooleanVar()
+        animal_allow_checkbox = Checkbutton(
+            checkbox_frame,
+            text="동물 허용",
+            variable=self.animal_allow_var,  # self 추가
+            command=self.filterCampsites,
+        )
+        animal_allow_checkbox.grid(row=3, column=0)
+
+        self.animal_disallow_var = BooleanVar()
+        animal_disallow_checkbox = Checkbutton(
+            checkbox_frame,
+            text="동물 불허",
+            variable=self.animal_disallow_var,  # self 추가
+            command=self.filterCampsites,
+        )
+        animal_disallow_checkbox.grid(row=3, column=1)
 
         # 검색창
         self.canvas.create_rectangle(400 + 20, 20, 1600 - 20, 65 - 20, tags="Details")
@@ -138,6 +193,42 @@ class MainTab:
                 campsite
                 for campsite in self.filteredCampsites
                 if "해변" in campsite["siteView"]
+            ]
+        if self.spring_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "봄" in campsite["openSeason"]
+            ]
+        if self.summer_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "여름" in campsite["openSeason"]
+            ]
+        if self.fall_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "가을" in campsite["openSeason"]
+            ]
+        if self.winter_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "겨울" in campsite["openSeason"]
+            ]
+        if self.animal_allow_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "불" not in campsite["animalAllow"]
+            ]
+        if self.animal_disallow_var.get() == True:
+            self.filteredCampsites = [
+                campsite
+                for campsite in self.filteredCampsites
+                if "불" in campsite["animalAllow"]
             ]
         self.display_results(self.filteredCampsites)
 
