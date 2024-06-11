@@ -4,6 +4,10 @@ from PIL import Image, ImageTk
 import io
 import requests
 from googlemaps import Client
+import telepot
+
+TOKEN = "7481744351:AAE3Po9SQfY-HfkDk4hIoIYQ3s36X3eke-Q"  # 텔레그램 봇의 API 토큰
+bot = telepot.Bot(TOKEN)
 
 
 class DetailedTab:
@@ -211,3 +215,12 @@ class DetailedTab:
         if self.zoom > 2:
             self.zoom -= 1
             self.update_map()
+
+    def send_telegram_message(self, user, msg):
+        try:
+            bot.sendMessage(user, msg)
+        except Exception as e:
+            print(f"Error occurred while sending message: {e}")
+
+    def add_to_bookmarks(self):
+        pass
