@@ -19,13 +19,15 @@ class DetailedTab:
         self.canvas.pack(expand=True, fill="both")  # Canvas를 확장하여 채우도록 설정
         # 지도탭
         self.canvas.create_rectangle(20, 20, 800 - 20, 900 - 220, tags="Map")
-
+        frameL = Frame(self.frame)
+        frameL.place(x=20, y=20)
         # Google Maps API 클라이언트 생성
         self.Google_API_Key = "AIzaSyCzFgc9OGnXckq1-JNhSCVGo9zIq1kSWcE"
         self.gmaps = Client(key=self.Google_API_Key)
 
         self.zoom = 10
         # 지도 이미지 라벨 생성
+        self.map_label = Label(frameL)
 
         # 지도 업데이트
         self.update_map()
