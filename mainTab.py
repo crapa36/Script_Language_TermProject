@@ -456,6 +456,7 @@ class MainTab:
                 for campsite in self.filteredCampsites
                 if "글램핑" in campsite["induty"]
             ]
+        self.search_campsites()
 
     def search_campsites(self):
         query = self.search_var.get().lower()
