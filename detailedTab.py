@@ -32,7 +32,7 @@ class DetailedTab:
         self.Google_API_Key = "AIzaSyCzFgc9OGnXckq1-JNhSCVGo9zIq1kSWcE"
         self.gmaps = Client(key=self.Google_API_Key)
 
-        self.zoom = 10
+        self.zoom = 12
         # 지도 이미지 라벨 생성
         self.map_label = Label(frameL)
 
