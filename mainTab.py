@@ -63,7 +63,7 @@ class MainTab:
         checkbox_frame.place(x=30, y=30)
 
         # 운영일 체크박스
-        Label(checkbox_frame, text="운영일", anchor="w").grid(
+        Label(checkbox_frame, text="운영일", font=("Arial", 12), anchor="w").grid(
             row=0, column=0, columnspan=1, sticky="w"
         )
         self.weekday_var = BooleanVar()
@@ -87,7 +87,7 @@ class MainTab:
         weekend_checkbox.grid(row=1, column=1, sticky="w")
 
         # 계절 체크박스
-        Label(checkbox_frame, text="운영 계절", anchor="w").grid(
+        Label(checkbox_frame, text="운영 계절", font=("Arial", 12), anchor="w").grid(
             row=2, column=0, columnspan=1, sticky="w"
         )
         self.spring_var = BooleanVar()
@@ -131,7 +131,7 @@ class MainTab:
         winter_checkbox.grid(row=3, column=3, sticky="w")
 
         # 입지 구분 체크박스
-        Label(checkbox_frame, text="입지 구분", anchor="w").grid(
+        Label(checkbox_frame, text="입지 구분", font=("Arial", 12), anchor="w").grid(
             row=4, column=0, columnspan=1, sticky="w"
         )
         self.mountain_var = BooleanVar()
@@ -175,9 +175,9 @@ class MainTab:
         beach_checkbox.grid(row=5, column=3, sticky="w")
 
         # 동물 허용 여부 체크박스
-        Label(checkbox_frame, text="동물 허용 여부", anchor="w").grid(
-            row=6, column=0, columnspan=1, sticky="w"
-        )
+        Label(
+            checkbox_frame, text="동물 허용 여부", font=("Arial", 12), anchor="w"
+        ).grid(row=6, column=0, columnspan=1, sticky="w")
         self.animal_allow_var = BooleanVar()
         animal_allow_checkbox = Checkbutton(
             checkbox_frame,
@@ -199,7 +199,7 @@ class MainTab:
         animal_disallow_checkbox.grid(row=7, column=1, sticky="w")
 
         # 부대시설 체크박스
-        Label(checkbox_frame, text="부대시설", anchor="w").grid(
+        Label(checkbox_frame, text="부대시설", font=("Arial", 12), anchor="w").grid(
             row=8, column=0, columnspan=1, sticky="w"
         )
         self.electricity_var = BooleanVar()
