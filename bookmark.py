@@ -107,32 +107,38 @@ class Bookmark:
         index = self.bookmark_listBox.curselection()
 
         # 선택된 캠핑장의 정보 가져오기
-        selected_campsite = self.bookmark_list[index[0]]
+        self.selected_campsite = self.bookmark_list[index[0]]
 
         # 선택된 캠핑장의 정보 출력 (또는 다른 작업 수행)
-        self.address_label.config(text="주소: " + selected_campsite["address"])
-        self.wep_address_label.config(text="홈페이지: " + selected_campsite["homepage"])
-        self.call_num_label.config(text="전화번호: " + selected_campsite["telNum"])
-        self.way_to_book_label.config(text="예약방법: " + selected_campsite["reserve"])
-        self.name_label.config(text="이름: " + selected_campsite["name"])
-        self.description_label.config(text=selected_campsite["intro"])
-        self.category_label.config(text="업종: " + selected_campsite["induty"])
-        self.position_label.config(text="입지: " + selected_campsite["siteView"])
-        self.season_label.config(text="계절: " + selected_campsite["openSeason"])
-        self.date_label.config(text="운영일: " + selected_campsite["openDate"])
+        self.address_label.config(text="주소: " + self.selected_campsite["address"])
+        self.wep_address_label.config(
+            text="홈페이지: " + self.selected_campsite["homepage"]
+        )
+        self.call_num_label.config(text="전화번호: " + self.selected_campsite["telNum"])
+        self.way_to_book_label.config(
+            text="예약방법: " + self.selected_campsite["reserve"]
+        )
+        self.name_label.config(text="이름: " + self.selected_campsite["name"])
+        self.description_label.config(text=self.selected_campsite["intro"])
+        self.category_label.config(text="업종: " + self.selected_campsite["induty"])
+        self.position_label.config(text="입지: " + self.selected_campsite["siteView"])
+        self.season_label.config(text="계절: " + self.selected_campsite["openSeason"])
+        self.date_label.config(text="운영일: " + self.selected_campsite["openDate"])
         self.can_animal_label.config(
-            text="동물 동반 여부: " + selected_campsite["animalAllow"]
+            text="동물 동반 여부: " + self.selected_campsite["animalAllow"]
         )
         self.additional_facilities_label.config(
-            text="부대시설: " + selected_campsite["amenities"]
+            text="부대시설: " + self.selected_campsite["amenities"]
         )
-        self.brazier_stand_label.config(text="화로대: " + selected_campsite["brazier"])
+        self.brazier_stand_label.config(
+            text="화로대: " + self.selected_campsite["brazier"]
+        )
 
         # 삭제하기 버튼
         self.button_frame = Frame(self.frame)
         self.button_frame.place(x=1520, y=220)
         self.bookmark_button = Button(
-            self.button_frame, text="삭제하기"
+            self.button_frame, text="삭제하기", command=self.delete_to_bookmarks
         )
         self.bookmark_button.pack(side=TOP)
 
@@ -142,4 +148,5 @@ class Bookmark:
             self.bookmark_listBox.insert("end", bookmark["name"])  # 새 항목 추가
 
     def delete_to_bookmarks(self):
+
         self.main_gui.delete_to_bookmarks(self.selected_campsite)

@@ -83,5 +83,12 @@ class MainGUI:
             self.tab3.update(self.bookmarks)
             self.tab4.update(self.bookmarks)
 
+    def delete_to_bookmarks(self, campsite):
+        if self.bookmarks and campsite in self.bookmarks:
+
+            self.bookmarks.remove(campsite)
+            self.tab3.update(self.bookmarks)
+            self.tab4.update(self.bookmarks)
+
 
 MainGUI(campsites)
