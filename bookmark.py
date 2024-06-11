@@ -42,6 +42,57 @@ class Bookmark:
         details_frame = Frame(self.frame, bg='white')
         details_frame.place(x=400 + 40, y=200 + 40)
 
+        self.category_label = Label(details_frame, font=30, bg='white')
+        self.category_label.pack(side=TOP, anchor='w')
+        # 띄어쓰기
+        Label(details_frame, bg='white').pack(side=TOP)
+
+        self.position_label = Label(details_frame, font=30, bg='white')
+        self.position_label.pack(side=TOP, anchor='w')
+        # 띄어쓰기
+        Label(details_frame, bg='white').pack(side=TOP)
+
+        self.season_label = Label(details_frame, font=30, bg='white')
+        self.season_label.pack(side=TOP, anchor='w')
+        # 띄어쓰기
+        Label(details_frame, bg='white').pack(side=TOP)
+
+        self.date_label = Label(details_frame, font=30, bg='white')
+        self.date_label.pack(side=TOP, anchor='w')
+        # 띄어쓰기
+        Label(details_frame, bg='white').pack(side=TOP)
+
+        self.can_animal_label = Label(details_frame, font=30, bg='white')
+        self.can_animal_label.pack(side=TOP, anchor='w')
+        # 띄어쓰기
+        Label(details_frame, bg='white').pack(side=TOP)
+
+        self.additional_facilities_label = Label(details_frame, font=30, bg='white')
+        self.additional_facilities_label.pack(side=TOP, anchor='w')
+        # 띄어쓰기
+        Label(details_frame, bg='white').pack(side=TOP)
+
+        self.brazier_stand_label = Label(details_frame, font=30, bg='white')
+        self.brazier_stand_label.pack(side=TOP, anchor='w')
+
+        # 띄어쓰기
+        Label(details_frame, bg='white').pack(side=TOP)
+
+        self.address_label = Label(details_frame, font=30, bg='white')
+        self.address_label.pack(side=TOP, anchor='w')
+        # 띄어쓰기
+        Label(details_frame, bg='white').pack(side=TOP)
+        self.wep_address_label = Label(details_frame, font=30, bg='white')
+        self.wep_address_label.pack(side=TOP, anchor='w')
+        # 띄어쓰기
+        Label(details_frame, bg='white').pack(side=TOP)
+        self.call_num_label = Label(details_frame, font=30, bg='white')
+        self.call_num_label.pack(side=TOP, anchor='w')
+        # 띄어쓰기
+        Label(details_frame, bg='white').pack(side=TOP)
+        self.way_to_book_label = Label(details_frame, font=30, bg='white')
+        self.way_to_book_label.pack(side=TOP, anchor='w')
+
         for N in self.bookmark_list:
             self.bookmark_listBox.insert(END, N['name'])
 
@@ -56,7 +107,18 @@ class Bookmark:
 
         # 선택된 캠핑장의 정보 출력 (또는 다른 작업 수행)
         print(selected_campsite)
-        self.name_label.config(text=selected_campsite['name'])
+        self.address_label.config(text='주소: ' +selected_campsite['address'])
+        self.wep_address_label.config(text='홈페이지: ' + selected_campsite['homepage'])
+        self.call_num_label.config(text='전화번호: ' + selected_campsite['telNum'])
+        self.way_to_book_label.config(text='예약방법: ' + selected_campsite['reserve'])
+        self.name_label.config(text='이름: ' + selected_campsite['name'])
         self.description_label.config(text=selected_campsite['intro'])
+        self.category_label.config(text='업종: ' + selected_campsite['induty'])
+        self.position_label.config(text='입지: ' + selected_campsite['siteView'])
+        self.season_label.config(text='계절: ' + selected_campsite['openSeason'])
+        self.date_label.config(text='운영일: ' + selected_campsite['openDate'])
+        self.can_animal_label.config(text='동물 동반 여부: ' + selected_campsite['animalAllow'])
+        self.additional_facilities_label.config(text='부대시설: ' + selected_campsite['amenities'])
+        self.brazier_stand_label.config(text='화로대: ' + selected_campsite['brazier'])
 
 
