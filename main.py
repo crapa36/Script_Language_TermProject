@@ -58,7 +58,7 @@ class MainGUI:
         self.campsites = campsites
 
         #상세에 보일 사이트
-        selected_site = "봉즈살롱"
+        selected_site = "(주)아웃오브파크"
 
         #찜하기
         self.bookmarks = []
