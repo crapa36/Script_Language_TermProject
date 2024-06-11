@@ -58,14 +58,18 @@ class MainGUI:
         self.campsites = campsites
 
         #상세에 보일 사이트
-        selected_site = "캠프더포레"
+        selected_site = "봉즈살롱"
+
+        #찜하기
+        self.bookmarks = []
 
         # 탭 객체 생성 및 추가
         tab1 = MainTab(notebook, campsites)
-        tab2 = DetailedTab(notebook)
+        tab2 = DetailedTab(notebook, self.bookmarks)
         tab2.update(self.get_campsite_by_name(selected_site))  # 첫 번째 캠핑장 정보로 업데이트
-        tab3 = Bookmark(notebook)
-        tab4 = Comparison(notebook)
+        tab2.add_to_bookmarks(self.get_campsite_by_name(selected_site))
+        tab3 = Bookmark(notebook, self.bookmarks)
+        tab4 = Comparison(notebook, self.bookmarks)
 
         window.mainloop()
 
