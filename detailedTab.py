@@ -110,18 +110,19 @@ class DetailedTab:
         self.brazier_stand_label.pack(side=TOP, anchor='w')
 
     def update(self, campsite):
-        # 캠핑장 정보를 표시하는 레이블 업데이트
-        self.address_label.config(text=campsite['address'])
-        self.wep_address_label.config(text=campsite['homepage'])
-        self.call_num_label.config(text=campsite['telNum'])
-        self.way_to_book_label.config(text=campsite['reserve'])
-        self.name_label.config(text='이름: ' + campsite['name'])
-        self.description_label.config(text=campsite['intro'])
-        self.category_label.config(text='업종: ' + campsite['induty'])
-        self.position_label.config(text='입지: ' + campsite['siteView'])
-        self.season_label.config(text='계절: ' + campsite['openSeason'])
-        self.date_label.config(text='운영일: ' + campsite['openDate'])
-        self.can_animal_label.config(text='동물 동반 여부: ' + campsite['animalAllow'])
-        self.additional_facilities_label.config(text='부대시설: ' + campsite['amenities'])
-        self.brazier_stand_label.config(text='화로대: ' + campsite['brazier'])
+        if campsite is not None:
+            # 캠핑장 정보를 표시하는 레이블 업데이트
+            self.address_label.config(text=campsite['address'])
+            self.wep_address_label.config(text=campsite['homepage'])
+            self.call_num_label.config(text=campsite['telNum'])
+            self.way_to_book_label.config(text=campsite['reserve'])
+            self.name_label.config(text='이름: ' + campsite['name'])
+            self.description_label.config(text=campsite['intro'])
+            self.category_label.config(text='업종: ' + campsite['induty'])
+            self.position_label.config(text='입지: ' + campsite['siteView'])
+            self.season_label.config(text='계절: ' + campsite['openSeason'])
+            self.date_label.config(text='운영일: ' + campsite['openDate'])
+            self.can_animal_label.config(text='동물 동반 여부: ' + campsite['animalAllow'])
+            self.additional_facilities_label.config(text='부대시설: ' + campsite['amenities'])
+            self.brazier_stand_label.config(text='화로대: ' + campsite['brazier'])
 
