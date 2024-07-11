@@ -9,7 +9,7 @@ import xml.etree.ElementTree as ET
 
 
 # 공공데이터 API 키
-api_key = "KZPiFTl7RsdgCF1Qz9UqM6hKAIib9ELWN7w9OIm3LiuHvM9VW269DvJoLJ5Luvxs3keNZqLAlzRi88mpophJBg%3D%3D"
+api_key = ""
 
 # 캠핑장 정보 데이터
 url = "http://apis.data.go.kr/B551011/GoCamping/basedList?serviceKey=" + api_key

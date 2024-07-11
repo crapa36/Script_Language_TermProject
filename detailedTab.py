@@ -10,7 +10,7 @@ import smtplib
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 
-TOKEN = "7360230970:AAEMlQZ8kf2UqsIQQfeaRRP6LsBXmbPOi24"  # 텔레그램 봇의 API 토큰
+TOKEN = ""  # 텔레그램 봇의 API 토큰
 bot = telepot.Bot(TOKEN)
 
 
@@ -29,7 +29,7 @@ class DetailedTab:
         frameL = Frame(self.frame)
         frameL.place(x=60, y=30)
         # Google Maps API 클라이언트 생성
-        self.Google_API_Key = "AIzaSyCzFgc9OGnXckq1-JNhSCVGo9zIq1kSWcE"
+        self.Google_API_Key = ""
         self.gmaps = Client(key=self.Google_API_Key)
 
         self.zoom = 12
